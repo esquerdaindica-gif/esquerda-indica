@@ -16,7 +16,7 @@ if ($p['telefone']) $linhas[] = 'TEL;TYPE=CELL:+55' . $p['telefone'];
 if ($p['whatsapp'] && $p['whatsapp'] !== $p['telefone']) $linhas[] = 'TEL;TYPE=WORK:+55' . $p['whatsapp'];
 if ($p['instagram']) $linhas[] = 'URL:' . link_instagram($p['instagram']);
 $linhas[] = 'ADR;TYPE=WORK:;;;' . $esc($p['cidade_nome']) . ';' . $esc($p['uf']) . ';;Brasil';
-$linhas[] = 'NOTE:' . $esc('Responsável: ' . $p['responsavel'] . '. ' . $p['descricao'] . ' (Profissionais Progressistas)');
+$linhas[] = 'NOTE:' . $esc('Responsável: ' . $p['responsavel'] . '. ' . $p['descricao'] . ' (Esquerda Indica)');
 $linhas[] = 'END:VCARD';
 
 $arquivo = preg_replace('/[^a-z0-9]+/', '-', strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', nome_exibicao($p)) ?: 'contato'));

@@ -2,7 +2,7 @@
   <defs>
     <symbol id="i-marca" viewBox="0 0 48 48">
       <rect width="48" height="48" rx="13" fill="#D6111F"/>
-      <g fill="none" stroke="#fff" stroke-width="5" stroke-linejoin="round" transform="translate(0 36) skewX(-10) translate(0 -36)"><path d="M9.5 36V12h3.2a6.2 6.2 0 0 1 0 12.4H9.5" stroke-opacity=".62"/><path d="M24.5 36V12h3.2a6.2 6.2 0 0 1 0 12.4h-3.2"/></g>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linejoin="miter" transform="translate(0 36) skewX(-10) translate(0 -36)"><path d="M23 12.5H12.5v23H23M12.5 24H21" stroke-opacity=".62"/><path d="M31.5 21v15"/></g><circle cx="33.6" cy="13.6" r="3.4" fill="#fff"/>
     </symbol>
     <symbol id="i-inicio" viewBox="0 0 24 24"><path d="M3.5 10.5 12 4l8.5 6.5V19.5a1.5 1.5 0 0 1-1.5 1.5h-4v-6H9v6H5a1.5 1.5 0 0 1-1.5-1.5z"/></symbol>
     <symbol id="i-buscar" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4 20.5 20.5"/></symbol>

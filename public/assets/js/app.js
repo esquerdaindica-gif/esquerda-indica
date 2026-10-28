@@ -1,4 +1,4 @@
-/* Profissionais Progressistas: interações da interface */
+/* Esquerda Indica: interações da interface */
 (function () {
   'use strict';
 

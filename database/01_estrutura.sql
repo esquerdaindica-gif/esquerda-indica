@@ -1,4 +1,4 @@
-# Profissionais Progressistas: estrutura do banco (MySQL 8 / MariaDB 10.6+)
+# Esquerda Indica: estrutura do banco (MySQL 8 / MariaDB 10.6+)
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 

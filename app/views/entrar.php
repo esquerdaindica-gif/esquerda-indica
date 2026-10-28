@@ -1,8 +1,4 @@
 <div class="acesso">
-  <a class="acesso-marca" href="<?= e(url('/')) ?>" style="text-decoration:none">
-    <svg class="marca" aria-hidden="true"><use href="#i-marca"/></svg>
-    <span>Profissionais<br>Progressistas</span>
-  </a>
   <h1 class="acesso-titulo">Bom te ver por aqui</h1>
   <p class="acesso-sub">Entre com o e-mail e a senha do seu cadastro.</p>
 

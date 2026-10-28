@@ -1,7 +1,7 @@
 <?php
 /** @var string $conteudo */
 $u = usuario_atual();
-$tituloPagina = isset($titulo) && $titulo ? $titulo . ' | Profissionais Progressistas' : 'Profissionais Progressistas';
+$tituloPagina = isset($titulo) && $titulo ? $titulo . ' | Esquerda Indica' : 'Esquerda Indica';
 $aba = $aba ?? '';
 $semAbas = !empty($semAbas) || !$u;
 $pendentesAdmin = ($u && $u['papel'] === 'admin') ? (int)val("SELECT COUNT(*) FROM solicitacoes WHERE status = 'pendente'") : 0;
@@ -11,12 +11,12 @@ $pendentesAdmin = ($u && $u['papel'] === 'admin') ? (int)val("SELECT COUNT(*) FR
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title><?= e($tituloPagina) ?></title>
-<meta name="description" content="Rede de contatos profissionais do grupo Profissionais Progressistas.">
+<meta name="description" content="Rede de contatos profissionais do grupo Esquerda Indica.">
 <meta name="theme-color" content="#D6111F">
 <meta name="robots" content="noindex, nofollow">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Progressistas">
+<meta name="apple-mobile-web-app-title" content="Esquerda Indica">
 <meta name="csrf" content="<?= e(csrf_token()) ?>">
 <link rel="manifest" href="<?= e(url('manifest.webmanifest')) ?>">
 <link rel="icon" href="<?= e(asset('img/icone.svg')) ?>" type="image/svg+xml">
@@ -33,9 +33,9 @@ $pendentesAdmin = ($u && $u['papel'] === 'admin') ? (int)val("SELECT COUNT(*) FR
       <a class="topo-botao" href="<?= e($voltar) ?>" aria-label="Voltar"><?= icon('voltar') ?></a>
       <h1 class="topo-titulo"><?= e($titulo ?? '') ?></h1>
     <?php else: ?>
-      <a class="topo-marca" href="<?= e(url('/')) ?>" aria-label="Profissionais Progressistas, início">
+      <a class="topo-marca" href="<?= e(url('/')) ?>" aria-label="Esquerda Indica, início">
         <svg class="marca" aria-hidden="true"><use href="#i-marca"/></svg>
-        <span class="topo-nome">Profissionais<br>Progressistas</span>
+        <span class="topo-nome">Esquerda<br>Indica</span>
       </a>
     <?php endif; ?>
     <div class="topo-acoes">

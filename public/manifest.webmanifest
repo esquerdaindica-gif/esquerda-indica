@@ -1,7 +1,7 @@
 {
-  "name": "Profissionais Progressistas",
-  "short_name": "Progressistas",
-  "description": "Rede de contatos profissionais do grupo Profissionais Progressistas.",
+  "name": "Esquerda Indica",
+  "short_name": "Esquerda Indica",
+  "description": "Rede de contatos profissionais do grupo Esquerda Indica.",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",

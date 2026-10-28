@@ -1,7 +1,7 @@
 <?php
 $nome = nome_exibicao($p);
 $linkPerfil = url_absoluta('p/' . $p['id']);
-$msgWhats = 'Olá! Encontrei seu contato no app Profissionais Progressistas.';
+$msgWhats = 'Olá! Encontrei seu contato no app Esquerda Indica.';
 ?>
 <?php if ($admin && $p['status'] === 'bloqueado'): ?>
   <div class="secao" style="padding-top:16px"><div class="aviso aviso-vermelho"><?= icon('bloquear') ?><p><strong>Perfil bloqueado.</strong> Só a administração vê esta página.</p></div></div>
@@ -23,7 +23,7 @@ $msgWhats = 'Olá! Encontrei seu contato no app Profissionais Progressistas.';
   <a class="acao acao-principal<?= $p['whatsapp'] ? '' : ' desligada' ?>" href="<?= $p['whatsapp'] ? e(link_whatsapp($p['whatsapp'], $msgWhats)) : '#' ?>" target="_blank" rel="noopener"<?= $p['whatsapp'] ? '' : ' aria-disabled="true"' ?>><?= icon('whatsapp') ?>WhatsApp</a>
   <a class="acao<?= $p['telefone'] ? '' : ' desligada' ?>" href="tel:+55<?= e($p['telefone']) ?>"><?= icon('telefone') ?>Ligar</a>
   <a class="acao<?= $p['instagram'] ? '' : ' desligada' ?>" href="<?= $p['instagram'] ? e(link_instagram($p['instagram'])) : '#' ?>" target="_blank" rel="noopener"<?= $p['instagram'] ? '' : ' aria-disabled="true"' ?>><?= icon('instagram') ?>Instagram</a>
-  <button type="button" class="acao" data-compartilhar="<?= e($linkPerfil) ?>" data-titulo="<?= e($nome) ?>" data-texto="<?= e($nome . ', ' . servico_label($p) . ' em ' . local_label($p) . '. Veja no Profissionais Progressistas:') ?>"><?= icon('compartilhar') ?>Compartilhar</button>
+  <button type="button" class="acao" data-compartilhar="<?= e($linkPerfil) ?>" data-titulo="<?= e($nome) ?>" data-texto="<?= e($nome . ', ' . servico_label($p) . ' em ' . local_label($p) . '. Veja no app Esquerda Indica:') ?>"><?= icon('compartilhar') ?>Compartilhar</button>
 </div>
 
 <?php if ($meu): ?>

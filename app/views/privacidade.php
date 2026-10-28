@@ -1,5 +1,5 @@
 <article class="texto-longo">
-  <p>Esta política explica quais dados o app <strong>Profissionais Progressistas</strong> guarda, para que servem e quais são seus direitos, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018).</p>
+  <p>Esta política explica quais dados o app <strong>Esquerda Indica</strong> guarda, para que servem e quais são seus direitos, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018).</p>
 
   <h2>Quais dados guardamos</h2>
   <ul>

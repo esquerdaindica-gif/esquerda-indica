@@ -1,5 +1,5 @@
 // Service worker: guarda os arquivos visuais para o app abrir rápido e mostra aviso quando estiver sem internet.
-const VERSAO = 'pp-v1';
+const VERSAO = 'ei-v1';
 const ARQUIVOS = ['offline', 'assets/css/app.css', 'assets/js/app.js', 'assets/img/icone.svg', 'assets/img/icone-192.png'];
 
 self.addEventListener('install', (e) => {

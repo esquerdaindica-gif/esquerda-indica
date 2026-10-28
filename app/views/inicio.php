@@ -3,7 +3,7 @@ $primeiroNome = explode(' ', trim($u['responsavel']))[0];
 ?>
 <section class="destaque">
   <p class="destaque-ola">Olá, <?= e($primeiroNome) ?></p>
-  <h1 class="destaque-manchete">Quem faz, a gente encontra aqui.</h1>
+  <h1 class="destaque-manchete">Precisa de alguém? A rede indica.</h1>
   <div class="numeros">
     <div class="numero"><span class="numero-valor"><?= numero($cont['ativos']) ?></span><span class="numero-rotulo"><?= $cont['ativos'] === 1 ? 'profissional ativo' : 'profissionais ativos' ?></span></div>
     <div class="numero"><span class="numero-valor"><?= numero($cont['total']) ?></span><span class="numero-rotulo"><?= $cont['total'] === 1 ? 'cadastro no total' : 'cadastros no total' ?></span></div>
@@ -70,7 +70,7 @@ $primeiroNome = explode(' ', trim($u['responsavel']))[0];
       <p style="font-weight:800">Chame mais gente do grupo</p>
       <p class="texto-pequeno texto-fraco">Quanto mais perfis, mais útil a rede fica.</p>
     </div>
-    <button type="button" class="botao botao-primario botao-pequeno" data-compartilhar="<?= e(url_absoluta('/')) ?>" data-titulo="Profissionais Progressistas" data-texto="Cadastre seu trabalho na rede Profissionais Progressistas:">Convidar</button>
+    <button type="button" class="botao botao-primario botao-pequeno" data-compartilhar="<?= e(url_absoluta('/')) ?>" data-titulo="Esquerda Indica" data-texto="Cadastre seu trabalho na rede Esquerda Indica:">Convidar</button>
   </div>
 </section>
 <?php endif; ?>

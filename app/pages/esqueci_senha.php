@@ -21,7 +21,7 @@ if (is_post()) {
             'Criar nova senha',
             $link
         );
-        enviar_email($u['email'], 'Nova senha | Profissionais Progressistas', $html);
+        enviar_email($u['email'], 'Nova senha | Esquerda Indica', $html);
         historico((int)$u['id'], label_usuario($u), 'senha_pedido', 'Pediu link para criar nova senha', null, 'usuario');
     }
     $enviado = true;
