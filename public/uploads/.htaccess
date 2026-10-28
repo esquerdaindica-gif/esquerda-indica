@@ -1,0 +1,5 @@
+# Nada de scripts na pasta de fotos
+php_flag engine off
+<FilesMatch "\.(php|phtml|phar|pl|py|cgi|sh)$">
+  Require all denied
+</FilesMatch>
