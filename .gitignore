@@ -1,0 +1,16 @@
+# Configuração com senhas do servidor
+app/config.php
+
+# Arquivos enviados pelos usuários
+public/uploads/fotos/*
+!public/uploads/fotos/.gitkeep
+storage/excluidos/*
+!storage/excluidos/.gitkeep
+
+# Sistema e editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+*.zip
