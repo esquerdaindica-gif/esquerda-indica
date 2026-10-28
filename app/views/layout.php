@@ -21,9 +21,7 @@ $pendentesAdmin = ($u && $u['papel'] === 'admin') ? (int)val("SELECT COUNT(*) FR
 <link rel="manifest" href="<?= e(url('manifest.webmanifest')) ?>">
 <link rel="icon" href="<?= e(asset('img/icone.svg')) ?>" type="image/svg+xml">
 <link rel="apple-touch-icon" href="<?= e(asset('img/icone-180.png')) ?>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&display=swap" rel="stylesheet">
+<link rel="preload" href="<?= e(url('assets/fontes/archivo.woff2')) ?>" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="<?= e(asset('css/app.css')) ?>">
 </head>
 <body data-base="<?= e(config('base_path') ?: '') ?>">

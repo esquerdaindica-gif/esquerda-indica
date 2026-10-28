@@ -263,6 +263,11 @@
     if (el.hasAttribute('data-multiplo')) {
       var iniciais = $$('[data-chip-inicial]', el).map(function (s) { return { v: s.getAttribute('data-chip-inicial'), t: s.textContent }; });
       $$('[data-chip-inicial]', el).forEach(function (s) { s.remove(); });
+      iniciais.forEach(function (it) {
+        var i = document.createElement('input');
+        i.type = 'hidden'; i.name = el.getAttribute('data-nome') + '[]'; i.value = it.v;
+        el.appendChild(i);
+      });
       desenharChips(el, iniciais);
     }
   });

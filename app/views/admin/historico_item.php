@@ -45,7 +45,7 @@ $autorTxt = ['usuario' => 'O próprio usuário', 'admin' => 'Administração', '
   <?php if ($fotoArquivada): ?><img src="<?= e($fotoArquivada) ?>" alt="Foto do perfil excluído" style="width:96px;height:96px;border-radius:24px;object-fit:cover;margin-bottom:10px"><?php endif; ?>
   <table class="tabela-dif">
     <?php foreach ($rotulosSnap as $k => $rot): if (!isset($dados['perfil'][$k]) || $dados['perfil'][$k] === '') continue; ?>
-      <tr><th><?= e($rot) ?></th><td><?= nl2br(e($dados['perfil'][$k])) ?></td></tr>
+      <tr><th><?= e($rot) ?></th><td><?= in_array($k, ['lgpd_aceite', 'cadastrado_em'], true) ? e(data_br($dados['perfil'][$k], true)) : nl2br(e($dados['perfil'][$k])) ?></td></tr>
     <?php endforeach; ?>
   </table>
 </section>

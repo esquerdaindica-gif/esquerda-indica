@@ -16,7 +16,7 @@
     <symbol id="i-editar" viewBox="0 0 24 24"><path d="m4 20 1-4.5L15.5 5a2.1 2.1 0 0 1 3 0l.5.5a2.1 2.1 0 0 1 0 3L8.5 19z"/><path d="m13.5 7 3.5 3.5"/></symbol>
     <symbol id="i-cadeado" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
     <symbol id="i-desbloquear" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 7.6-1.8"/></symbol>
-    <symbol id="i-sair" viewBox="0 0 24 24"><path d="M14 4.5h3.5a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H14"/><path d="m10 16 4-4-4-4"/><path d="M14 12H3.5"/></symbol>
+    <symbol id="i-sair" viewBox="0 0 24 24"><path d="M10 4.5H6.5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2H10"/><path d="m15 16 4-4-4-4"/><path d="M19 12H9"/></symbol>
     <symbol id="i-lixeira" viewBox="0 0 24 24"><path d="M4.5 7h15"/><path d="M9.5 7V4.5h5V7"/><path d="m6.5 7 .9 12.2a1.5 1.5 0 0 0 1.5 1.3h6.2a1.5 1.5 0 0 0 1.5-1.3L17.5 7"/><path d="M10 11v5.5M14 11v5.5"/></symbol>
     <symbol id="i-bloquear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M6 18 18 6"/></symbol>
     <symbol id="i-historico" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3.5 4v4.5H8"/><path d="M12 7.5V12l3 2"/></symbol>

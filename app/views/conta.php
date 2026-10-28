@@ -51,7 +51,7 @@
 
 <section class="secao">
   <nav class="menu">
-    <a class="menu-item" href="<?= e(url('p/' . $p['id'])) ?>"><?= icon('olho') ?><span>Ver meu perfil como os outros veem</span><?= icon('seta') ?></a>
+    <a class="menu-item" href="<?= e(url('p/' . $p['id'])) ?>"><?= icon('olho') ?><span>Ver meu perfil público</span><?= icon('seta') ?></a>
     <a class="menu-item" href="<?= e(url('conta/senha')) ?>"><?= icon('chave') ?><span>Alterar senha</span><?= icon('seta') ?></a>
     <a class="menu-item" href="<?= e(url('conta/solicitar')) ?>"><?= icon('caixa') ?><span>Meus pedidos de alteração</span><?= icon('seta') ?></a>
     <a class="menu-item" href="<?= e(url('privacidade')) ?>"><?= icon('cadeado') ?><span>Privacidade e dados</span><?= icon('seta') ?></a>

@@ -1,6 +1,15 @@
 /* Profissionais Progressistas: identidade visual
    Branco como base, vermelho como cor de ação, preto para textos sobre branco. */
 
+@font-face {
+  font-family: "Archivo";
+  src: url("../fontes/archivo.woff2") format("woff2-variations"), url("../fontes/archivo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --branco: #FFFFFF;
   --vermelho: #D6111F;
@@ -75,6 +84,7 @@ h1, h2, h3, h4, p { margin: 0; }
   margin: 0 auto;
   background: var(--branco);
   padding-bottom: calc(var(--abas-altura) + var(--seguro-baixo) + 24px);
+  overflow-x: clip;
 }
 .app.sem-abas { padding-bottom: calc(32px + var(--seguro-baixo)); }
 @media (min-width: 560px) {
@@ -118,7 +128,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .secao-cabeca { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
 .secao-titulo {
   font-size: 22px; line-height: 1.1; font-weight: 800;
-  font-variation-settings: "wdth" 72; letter-spacing: -.01em;
+  font-variation-settings: "wdth" 72; letter-spacing: -.005em; word-spacing: .06em;
 }
 .secao-link { color: var(--vermelho); font-weight: 700; font-size: 15px; text-decoration: none; white-space: nowrap; }
 .texto-fraco { color: var(--grafite); }
@@ -166,6 +176,7 @@ h1, h2, h3, h4, p { margin: 0; }
   padding: 22px 16px 54px;
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 34px), 0 100%);
   margin-bottom: -18px;
+  overflow: hidden;
 }
 .destaque::after {
   content: ""; position: absolute; right: -40px; top: -60px;
@@ -177,7 +188,7 @@ h1, h2, h3, h4, p { margin: 0; }
 .destaque-manchete {
   margin-top: 6px;
   font-size: 40px; line-height: .98; font-weight: 850;
-  font-variation-settings: "wdth" 66; letter-spacing: -.015em;
+  font-variation-settings: "wdth" 68; letter-spacing: -.005em; word-spacing: .1em;
   max-width: 14ch;
 }
 .numeros { display: flex; gap: 0; margin-top: 22px; }
@@ -265,7 +276,7 @@ h1, h2, h3, h4, p { margin: 0; }
 /* ========== Carrossel de novos ========== */
 
 .carrossel {
-  display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+  display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 16px;
   margin: 0 -16px; padding: 2px 16px 10px; scrollbar-width: none;
 }
 .carrossel::-webkit-scrollbar { display: none; }
@@ -372,7 +383,7 @@ h1, h2, h3, h4, p { margin: 0; }
   caret-color: var(--preto);
   transition: background-color 9999s;
 }
-textarea.entrada { min-height: 120px; padding: 14px 16px; line-height: 1.5; resize: vertical; }
+textarea.entrada { min-height: 120px; padding: 14px 16px; line-height: 1.5; resize: none; field-sizing: content; max-height: 360px; }
 .entrada-grupo { position: relative; display: flex; align-items: center; }
 .entrada-grupo .entrada { padding-right: 52px; }
 .entrada-grupo .entrada.com-prefixo { padding-left: 42px; }
@@ -477,7 +488,7 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
 .acesso-marca { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
 .acesso-marca .marca { width: 52px; height: 52px; }
 .acesso-marca span { font-weight: 850; font-size: 21px; line-height: 1; font-variation-settings: "wdth" 70; }
-.acesso-titulo { font-size: 34px; line-height: 1.02; font-weight: 850; font-variation-settings: "wdth" 66; letter-spacing: -.015em; }
+.acesso-titulo { font-size: 34px; line-height: 1.02; font-weight: 850; font-variation-settings: "wdth" 68; letter-spacing: -.005em; word-spacing: .08em; }
 .acesso-sub { margin-top: 10px; color: var(--grafite); }
 .acesso .form { margin-top: 26px; }
 .acesso-rodape { margin-top: 26px; padding: 18px 0 0; border-top: 1px solid var(--linha); text-align: center; color: var(--grafite); }
@@ -498,8 +509,8 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
 }
 .capa-titulo {
   position: relative; z-index: 1;
-  font-size: 50px; line-height: .94; font-weight: 900;
-  font-variation-settings: "wdth" 62; letter-spacing: -.02em;
+  font-size: 48px; line-height: .95; font-weight: 900;
+  font-variation-settings: "wdth" 66; letter-spacing: -.01em; word-spacing: .1em;
 }
 .capa-texto { position: relative; z-index: 1; margin-top: 16px; font-size: 17px; line-height: 1.45; max-width: 34ch; }
 .capa .numeros { position: relative; z-index: 1; margin-top: 26px; }
@@ -522,7 +533,7 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
 .perfil-nome {
   margin-top: 18px;
   font-size: 32px; line-height: 1; font-weight: 850;
-  font-variation-settings: "wdth" 68; letter-spacing: -.015em;
+  font-variation-settings: "wdth" 70; letter-spacing: -.005em; word-spacing: .08em;
   overflow-wrap: anywhere;
 }
 .perfil-resp { margin-top: 6px; color: var(--grafite); font-size: 15px; }

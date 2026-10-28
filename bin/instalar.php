@@ -27,7 +27,7 @@ printf("  %d estados, %d cidades, %d tipos de serviço\n",
     val('SELECT COUNT(*) FROM estados'), val('SELECT COUNT(*) FROM cidades'), val('SELECT COUNT(*) FROM servicos'));
 
 echo "\nDefina a senha do administrador (mínimo 8 caracteres): ";
-if (function_exists('shell_exec') && trim((string)shell_exec('tty 2>/dev/null')) !== '') {
+if (stream_isatty(STDIN) && function_exists('shell_exec')) {
     shell_exec('stty -echo');
     $senha = trim((string)fgets(STDIN));
     shell_exec('stty echo');
