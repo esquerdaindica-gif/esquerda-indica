@@ -4,7 +4,7 @@ return [
     'app_name'  => 'Esquerda Indica',
 
     // Endereço público do site, sem barra no final. Usado nos links de recuperação de senha e compartilhamento.
-    'base_url'  => 'https://esquerdaindica.com.br',
+    'base_url'  => 'https://esquerdaindica.com',
 
     // Se o app ficar em uma subpasta (ex.: https://site.com/app), coloque '/app'. Na raiz do domínio, deixe ''.
     'base_path' => '',
@@ -19,7 +19,7 @@ return [
 
     // Envio de e-mail (recuperação de senha). Deixe smtp_host vazio para usar a função mail() do PHP.
     'mail' => [
-        'from'        => 'nao-responda@esquerdaindica.com.br',
+        'from'        => 'nao-responda@esquerdaindica.com',
         'from_name'   => 'Esquerda Indica',
         'smtp_host'   => '',
         'smtp_port'   => 587,
@@ -29,7 +29,7 @@ return [
     ],
 
     // E-mail que aparece na política de privacidade para pedidos sobre dados pessoais
-    'email_contato' => 'contato@esquerdaindica.com.br',
+    'email_contato' => 'contato@esquerdaindica.com',
 
     'timezone' => 'America/Sao_Paulo',
 

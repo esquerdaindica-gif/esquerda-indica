@@ -2,7 +2,7 @@
 # Publica ou atualiza o Esquerda Indica num servidor Ubuntu.
 #
 # A partir do repositório clonado no servidor:
-#   git clone https://github.com/USUARIO/esquerda-indica.git /root/esquerda-indica
+#   git clone https://github.com/esquerdaindica-gif/esquerda-indica.git /root/esquerda-indica
 #   bash /root/esquerda-indica/bin/publicar.sh dominio.com.br email-do-admin@dominio.com
 #
 # Ou com o zip do projeto na mesma pasta deste script:
@@ -36,13 +36,16 @@ export DEBIAN_FRONTEND=noninteractive
 PRECISA=()
 command -v unzip >/dev/null || PRECISA+=(unzip)
 command -v rsync >/dev/null || PRECISA+=(rsync)
-if ! ls /run/php/php*-fpm.sock >/dev/null 2>&1 && ! command -v php-fpm8.3 >/dev/null; then
-  PRECISA+=(php8.3-fpm php8.3-cli)
+# Os pacotes genéricos (php-fpm, php-mysql...) seguem a versão de PHP da distribuição,
+# então o mesmo script serve para o Ubuntu 24.04, o 26.04 e os próximos.
+if ! command -v php >/dev/null || ! ls /usr/sbin/php-fpm* >/dev/null 2>&1; then
+  PRECISA+=(php-fpm php-cli php-mysql php-gd php-mbstring)
+else
+  PHPV="$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')"
+  for ext in mysql gd mbstring; do
+    php -m 2>/dev/null | grep -qi "^${ext/mysql/pdo_mysql}$" || PRECISA+=("php${PHPV}-${ext}")
+  done
 fi
-PHPV="$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;' 2>/dev/null || echo 8.3)"
-for ext in mysql gd mbstring; do
-  php -m 2>/dev/null | grep -qi "^${ext/mysql/pdo_mysql}$" || PRECISA+=("php${PHPV}-${ext}")
-done
 if ! command -v mysql >/dev/null; then PRECISA+=(mysql-server); fi
 WEB=""
 if systemctl is-active --quiet nginx 2>/dev/null || command -v nginx >/dev/null; then WEB=nginx
@@ -103,12 +106,12 @@ ALTER USER '$BANCO'@'localhost' IDENTIFIED BY '$SENHA_DB';
 GRANT ALL PRIVILEGES ON \`$BANCO\`.* TO '$BANCO'@'localhost';
 FLUSH PRIVILEGES;
 SQL
-  sed -e "s#https://esquerdaindica.com.br#https://$DOMINIO#" \
+  sed -e "s#https://esquerdaindica.com\b#https://$DOMINIO#" \
       -e "s#'name' => 'profissionais'#'name' => '$BANCO'#" \
       -e "s#'user' => 'profissionais'#'user' => '$BANCO'#" \
       -e "s#TROQUE_ESTA_SENHA#$SENHA_DB#" \
       -e "s#'host' => '127.0.0.1'#'host' => 'localhost'#" \
-      -e "s#@esquerdaindica.com.br#@$DOMINIO#g" \
+      -e "s#@esquerdaindica.com\b#@$DOMINIO#g" \
       "$PASTA/app/config.example.php" > "$PASTA/app/config.php"
   chmod 640 "$PASTA/app/config.php"
   ok "banco $BANCO e app/config.php criados"

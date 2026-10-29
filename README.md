@@ -104,7 +104,7 @@ Depois é só abrir `http://localhost:8080`.
 O caminho mais curto num servidor Ubuntu é clonar o repositório e rodar o script de publicação. Ele instala o que faltar, cria o banco, configura o Nginx (ou o Apache, se for ele que já estiver rodando) e ativa o HTTPS:
 
 ```bash
-git clone https://github.com/USUARIO/esquerda-indica.git /root/esquerda-indica
+git clone https://github.com/esquerdaindica-gif/esquerda-indica.git /root/esquerda-indica
 bash /root/esquerda-indica/bin/publicar.sh seudominio.com.br seu-email@dominio.com
 ```
 

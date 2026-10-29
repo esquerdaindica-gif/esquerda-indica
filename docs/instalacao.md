@@ -7,7 +7,7 @@ Há dois caminhos: o script de publicação, que faz tudo sozinho, ou a instala�
 No servidor, como root:
 
 ```bash
-git clone https://github.com/USUARIO/esquerda-indica.git /root/esquerda-indica
+git clone https://github.com/esquerdaindica-gif/esquerda-indica.git /root/esquerda-indica
 bash /root/esquerda-indica/bin/publicar.sh seudominio.com.br seu-email@dominio.com
 ```
 
@@ -36,12 +36,13 @@ bash bin/publicar.sh seudominio.com.br seu-email@dominio.com
 
 Nas atualizações o script mantém a configuração, as fotos e o banco, e só aplica o que mudou nas tabelas.
 
-## Instalação manual (Ubuntu 24.04)
+## Instalação manual (Ubuntu 24.04 ou mais novo)
 
 1. Pacotes:
    ```
-   sudo apt install php8.3-fpm php8.3-mysql php8.3-gd php8.3-mbstring mysql-server
+   sudo apt install php-fpm php-mysql php-gd php-mbstring mysql-server
    ```
+   Os pacotes `php-*` instalam a versão de PHP da sua distribuição (8.3 no Ubuntu 24.04, mais nova no 26.04). Confira qual foi com `php -v`.
 2. Envie a pasta do projeto para o servidor, por exemplo `/var/www/esquerda-indica`.
 3. Crie o banco e o usuário no MySQL:
    ```sql
@@ -65,7 +66,7 @@ Nas atualizações o script mantém a configuração, as fotos e o banco, e só 
 
 ```nginx
 server {
-    server_name esquerdaindica.com.br;
+    server_name esquerdaindica.com;
     root /var/www/esquerda-indica/public;
     index index.php;
     client_max_body_size 10M;
@@ -75,7 +76,7 @@ server {
     }
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;  # troque 8.3 pela versão de `php -v`
     }
     location ^~ /uploads/ {
         location ~ \.php$ { deny all; }
