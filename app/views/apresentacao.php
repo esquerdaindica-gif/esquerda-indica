@@ -1,9 +1,14 @@
+<header class="capa-logo">
+  <picture>
+    <source srcset="<?= e(asset('img/logo.webp')) ?>" type="image/webp">
+    <img src="<?= e(asset('img/logo.png')) ?>" alt="Esquerda Indica" width="1100" height="415">
+  </picture>
+</header>
 <section class="capa">
   <h1 class="capa-titulo">Os contatos do grupo, agora na palma da mão.</h1>
   <p class="capa-texto">Encontre profissionais de confiança da nossa rede por serviço, estado e cidade. E deixe seu trabalho fácil de achar.</p>
   <div class="numeros">
     <div class="numero"><span class="numero-valor"><?= numero($cont['ativos']) ?></span><span class="numero-rotulo"><?= $cont['ativos'] === 1 ? 'profissional ativo' : 'profissionais ativos' ?></span></div>
-    <div class="numero"><span class="numero-valor"><?= numero($cont['total']) ?></span><span class="numero-rotulo"><?= $cont['total'] === 1 ? 'cadastro no total' : 'cadastros no total' ?></span></div>
   </div>
   <div class="botoes">
     <a class="botao botao-branco" href="<?= e(url('cadastro')) ?>">Criar conta</a>

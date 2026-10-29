@@ -6,7 +6,6 @@ $primeiroNome = explode(' ', trim($u['responsavel']))[0];
   <h1 class="destaque-manchete">Precisa de alguém? A rede indica.</h1>
   <div class="numeros">
     <div class="numero"><span class="numero-valor"><?= numero($cont['ativos']) ?></span><span class="numero-rotulo"><?= $cont['ativos'] === 1 ? 'profissional ativo' : 'profissionais ativos' ?></span></div>
-    <div class="numero"><span class="numero-valor"><?= numero($cont['total']) ?></span><span class="numero-rotulo"><?= $cont['total'] === 1 ? 'cadastro no total' : 'cadastros no total' ?></span></div>
   </div>
   <a class="busca-rapida" href="<?= e(url('buscar')) ?>"><?= icon('buscar') ?><span>Buscar por serviço, cidade ou nome</span></a>
 </section>

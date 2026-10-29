@@ -49,7 +49,7 @@ O Esquerda Indica organiza isso. Cada pessoa cadastra o próprio trabalho uma ve
 </p>
 
 **Tela inicial**
-- Contadores de profissionais ativos e de cadastros no total.
+- Contador de profissionais ativos na rede.
 - Destaque para quem acabou de entrar, vagas abertas, serviços mais presentes na rede e profissionais da sua cidade.
 
 **Administração**
