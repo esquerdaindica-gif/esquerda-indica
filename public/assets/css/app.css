@@ -72,7 +72,7 @@ h1, h2, h3, h4, p { margin: 0; }
   fill: none; stroke: currentColor; stroke-width: 1.9;
   stroke-linecap: round; stroke-linejoin: round;
 }
-.marca { width: 38px; height: 38px; flex: none; display: block; }
+.marca { width: 38px; height: 38px; flex: none; display: block; border-radius: 10px; }
 
 /* ========== Estrutura do app ========== */
 
@@ -485,9 +485,6 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
 /* ========== Telas de acesso ========== */
 
 .acesso { padding: 28px 20px 0; }
-.acesso-marca { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
-.acesso-marca .marca { width: 52px; height: 52px; }
-.acesso-marca span { font-weight: 850; font-size: 21px; line-height: 1; font-variation-settings: "wdth" 70; }
 .acesso-titulo { font-size: 34px; line-height: 1.02; font-weight: 850; font-variation-settings: "wdth" 68; letter-spacing: -.005em; word-spacing: .08em; }
 .acesso-sub { margin-top: 10px; color: var(--grafite); }
 .acesso .form { margin-top: 26px; }
@@ -496,6 +493,11 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
 .link-direita { justify-self: end; font-size: 14px; margin-top: -8px; }
 
 /* Apresentação para quem não entrou */
+.capa-logo {
+  padding: calc(30px + env(safe-area-inset-top, 0px)) 28px 22px;
+  background: var(--branco);
+}
+.capa-logo img { display: block; width: 100%; max-width: 340px; height: auto; margin: 0 auto; }
 .capa {
   position: relative; overflow: hidden;
   background: var(--vermelho); color: var(--branco);

@@ -1,6 +1,6 @@
 // Service worker: guarda os arquivos visuais para o app abrir rápido e mostra aviso quando estiver sem internet.
-const VERSAO = 'ei-v2';
-const ARQUIVOS = ['offline', 'assets/css/app.css', 'assets/js/app.js', 'assets/img/icone.svg', 'assets/img/icone-192.png'];
+const VERSAO = 'ei-v3';
+const ARQUIVOS = ['offline', 'assets/css/app.css', 'assets/js/app.js', 'assets/img/icone-96.png', 'assets/img/icone-192.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(VERSAO).then((c) => c.addAll(ARQUIVOS)).then(() => self.skipWaiting()));

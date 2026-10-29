@@ -19,7 +19,8 @@ $pendentesAdmin = ($u && $u['papel'] === 'admin') ? (int)val("SELECT COUNT(*) FR
 <meta name="apple-mobile-web-app-title" content="Esquerda Indica">
 <meta name="csrf" content="<?= e(csrf_token()) ?>">
 <link rel="manifest" href="<?= e(url('manifest.webmanifest')) ?>">
-<link rel="icon" href="<?= e(asset('img/icone.svg')) ?>" type="image/svg+xml">
+<link rel="icon" href="<?= e(asset('img/icone-48.png')) ?>" type="image/png" sizes="48x48">
+<link rel="icon" href="<?= e(asset('img/icone-32.png')) ?>" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="<?= e(asset('img/icone-180.png')) ?>">
 <link rel="preload" href="<?= e(url('assets/fontes/archivo.woff2')) ?>" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="<?= e(asset('css/app.css')) ?>">
@@ -28,13 +29,14 @@ $pendentesAdmin = ($u && $u['papel'] === 'admin') ? (int)val("SELECT COUNT(*) FR
 <?php require APP_DIR . '/views/icones.php'; ?>
 <div class="app<?= $semAbas ? ' sem-abas' : '' ?>">
 
+  <?php if (empty($semTopo)): ?>
   <header class="topo<?= !empty($topoVermelho) ? ' topo-vermelho' : '' ?>">
     <?php if (!empty($voltar)): ?>
       <a class="topo-botao" href="<?= e($voltar) ?>" aria-label="Voltar"><?= icon('voltar') ?></a>
       <h1 class="topo-titulo"><?= e($titulo ?? '') ?></h1>
     <?php else: ?>
       <a class="topo-marca" href="<?= e(url('/')) ?>" aria-label="Esquerda Indica, início">
-        <svg class="marca" aria-hidden="true"><use href="#i-marca"/></svg>
+        <img class="marca" src="<?= e(asset('img/icone-96.png')) ?>" alt="" width="38" height="38">
         <span class="topo-nome">Esquerda<br>Indica</span>
       </a>
     <?php endif; ?>
@@ -47,6 +49,7 @@ $pendentesAdmin = ($u && $u['papel'] === 'admin') ? (int)val("SELECT COUNT(*) FR
       <?php endif; ?>
     </div>
   </header>
+  <?php endif; ?>
 
   <main class="tela" id="conteudo">
     <?= $conteudo ?>

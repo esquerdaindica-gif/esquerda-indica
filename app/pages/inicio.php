@@ -3,7 +3,7 @@ $u = usuario_atual();
 $cont = contadores();
 
 if (!$u) {
-    render('apresentacao', ['cont' => $cont, 'semAbas' => true]);
+    render('apresentacao', ['cont' => $cont, 'semAbas' => true, 'semTopo' => true]);
 }
 
 $base = "u.papel = 'usuario' AND u.status = 'ativo'";

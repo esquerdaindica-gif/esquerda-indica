@@ -105,3 +105,13 @@ Nasceu com o nome de trabalho **Profissionais Progressistas**, para substituir a
 
 ### Corrigido
 - Ao escolher "Outro" no tipo de serviço, o campo de texto podia roubar o foco de quem já estava digitando em outro campo.
+
+## [0.4.1] 29/10/2026: nova identidade visual
+
+### Alterado
+- Novo ícone "ei" em todo o app: topo das telas, ícone instalado no celular (Android e iPhone), favicon e cabeçalho dos e-mails.
+- Logo completo "Esquerda Indica" no topo da tela de apresentação, que passa a abrir direto no logo.
+- As telas de apresentação e inicial mostram só o número de profissionais ativos. O total de cadastros fica apenas no painel da administração.
+
+### Removido
+- Marca "Ei" desenhada em código, substituída pelo ícone oficial.

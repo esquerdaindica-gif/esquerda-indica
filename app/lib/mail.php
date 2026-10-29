@@ -76,7 +76,9 @@ function email_modelo(string $titulo, string $texto, ?string $botaoTexto = null,
     $btn = $botaoTexto ? '<p style="margin:28px 0"><a href="' . e($botaoUrl) . '" style="background:#D6111F;color:#fff;text-decoration:none;padding:14px 22px;border-radius:12px;font-weight:700;display:inline-block">' . e($botaoTexto) . '</a></p>' : '';
     return '<!doctype html><html><body style="margin:0;background:#F5F4F4;font-family:Arial,Helvetica,sans-serif;color:#000">'
         . '<div style="max-width:520px;margin:0 auto;padding:32px 20px">'
-        . '<div style="background:#D6111F;color:#fff;font-weight:800;font-size:18px;padding:18px 22px;border-radius:16px 16px 0 0">Esquerda Indica</div>'
+        . '<div style="background:#D6111F;color:#fff;font-weight:800;font-size:18px;padding:14px 22px;border-radius:16px 16px 0 0">'
+        . '<img src="' . e(url_absoluta('assets/img/icone-96.png')) . '" width="36" height="36" alt="" style="vertical-align:middle;border-radius:9px;margin-right:10px">'
+        . '<span style="vertical-align:middle">Esquerda Indica</span></div>'
         . '<div style="background:#fff;padding:26px 22px;border-radius:0 0 16px 16px">'
         . '<h1 style="font-size:20px;margin:0 0 12px">' . e($titulo) . '</h1>'
         . '<p style="font-size:15px;line-height:1.55;margin:0">' . $texto . '</p>' . $btn

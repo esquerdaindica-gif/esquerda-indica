@@ -1,9 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
   <defs>
-    <symbol id="i-marca" viewBox="0 0 48 48">
-      <rect width="48" height="48" rx="13" fill="#D6111F"/>
-      <g fill="none" stroke="#fff" stroke-width="5" stroke-linejoin="miter" transform="translate(0 36) skewX(-10) translate(0 -36)"><path d="M23 12.5H12.5v23H23M12.5 24H21" stroke-opacity=".62"/><path d="M31.5 21v15"/></g><circle cx="33.6" cy="13.6" r="3.4" fill="#fff"/>
-    </symbol>
     <symbol id="i-inicio" viewBox="0 0 24 24"><path d="M3.5 10.5 12 4l8.5 6.5V19.5a1.5 1.5 0 0 1-1.5 1.5h-4v-6H9v6H5a1.5 1.5 0 0 1-1.5-1.5z"/></symbol>
     <symbol id="i-buscar" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4 20.5 20.5"/></symbol>
     <symbol id="i-conta" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1.2-3.8 4.2-5.5 7.5-5.5s6.3 1.7 7.5 5.5"/></symbol>
