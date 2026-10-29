@@ -17,6 +17,7 @@ Itens marcados já estão prontos e aparecem no [CHANGELOG.md](CHANGELOG.md).
 - [x] Edição do perfil a cada 24 horas, com a regra antiga disponível nas configurações (0.4.0)
 - [x] Base de planos, assinaturas e pagamentos (0.4.0)
 - [x] Migrações de banco versionadas (0.4.0)
+- [x] Repositório público com guia de arquitetura, contribuição e verificação automática (0.4.2)
 
 ## 0.5: deixar a operação segura
 

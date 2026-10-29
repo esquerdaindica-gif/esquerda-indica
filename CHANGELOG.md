@@ -115,3 +115,19 @@ Nasceu com o nome de trabalho **Profissionais Progressistas**, para substituir a
 
 ### Removido
 - Marca "Ei" desenhada em código, substituída pelo ícone oficial.
+
+## [0.4.2] 29/10/2026: repositório público e documentação
+
+### Adicionado
+- Guia de [arquitetura](docs/arquitetura.md) com o caminho de uma requisição, o padrão dos formulários, o modelo do banco em diagrama, as migrações e receitas para as mudanças mais comuns.
+- Guia de contribuição (`CONTRIBUTING.md`) com as convenções de código, textos, visual, commits e versões.
+- Política de segurança (`SECURITY.md`) com o relato privado de vulnerabilidades.
+- Modelos de issue (problema e sugestão) e de pull request.
+- Verificação automática no GitHub: sintaxe do PHP nas versões 8.1, 8.3 e 8.4, `shellcheck` no script de publicação e busca por travessões nos textos.
+
+### Alterado
+- README reorganizado, com sumário, tabela de decisões de projeto, diagrama do funcionamento e índice da documentação.
+- Domínio de exemplo da configuração trocado pelo oficial, `esquerdaindica.com`.
+
+### Corrigido
+- O `publicar.sh` pedia pacotes `php8.3-*`, que não existem no Ubuntu 26.04. Agora usa os pacotes genéricos da distribuição e funciona em qualquer versão a partir da 24.04.

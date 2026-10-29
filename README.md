@@ -1,20 +1,53 @@
-# Esquerda Indica
+<div align="center">
 
-Rede de contatos profissionais do nosso grupo. Quem trabalha com alguma coisa cria um perfil, e quem precisa de um serviço encontra alguém de confiança por tipo de serviço, estado e cidade.
+<img src="public/assets/img/logo.png" width="360" alt="Esquerda Indica">
 
-O app funciona no navegador, mas foi pensado para o celular: dá para instalar na tela inicial como um aplicativo comum.
+**A rede de contatos profissionais do grupo, organizada num app.**<br>
+Quem trabalha cria um perfil. Quem precisa encontra alguém de confiança por serviço, estado e cidade.
 
-<p>
+[![Verificação](https://github.com/esquerdaindica-gif/esquerda-indica/actions/workflows/verificacao.yml/badge.svg)](https://github.com/esquerdaindica-gif/esquerda-indica/actions/workflows/verificacao.yml)
+![Versão](https://img.shields.io/badge/vers%C3%A3o-0.4.2-D6111F)
+![PHP](https://img.shields.io/badge/PHP-8.1%2B-777BB4?logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8%20%7C%20MariaDB%2010.6%2B-4479A1?logo=mysql&logoColor=white)
+![PWA](https://img.shields.io/badge/PWA-instal%C3%A1vel-5A0FC8?logo=pwa&logoColor=white)
+![Dependências](https://img.shields.io/badge/depend%C3%AAncias-nenhuma-2EA44F)
+
+[Site](https://esquerdaindica.com) ·
+[Rodar no computador](#rodando-no-seu-computador) ·
+[Publicar](#publicando) ·
+[Arquitetura](docs/arquitetura.md) ·
+[Contribuir](CONTRIBUTING.md)
+
+</div>
+
+<p align="center">
   <img src="docs/telas/03-inicio.png" width="230" alt="Tela inicial">
   <img src="docs/telas/04-busca.png" width="230" alt="Busca por cidade">
   <img src="docs/telas/10-vagas.png" width="230" alt="Vagas de emprego">
 </p>
+
+## Sumário
+
+- [Por que existe](#por-que-existe)
+- [O que já funciona](#o-que-já-funciona)
+- [Tecnologias e decisões de projeto](#tecnologias-e-decisões-de-projeto)
+- [Rodando no seu computador](#rodando-no-seu-computador)
+- [Como o código funciona](#como-o-código-funciona)
+- [Publicando](#publicando)
+- [Planos e limites de vagas](#planos-e-limites-de-vagas)
+- [Organização das pastas](#organização-das-pastas)
+- [Segurança e privacidade](#segurança-e-privacidade)
+- [Documentação](#documentação)
+- [Contribuindo](#contribuindo)
+- [Licença](#licença)
 
 ## Por que existe
 
 O grupo sempre funcionou como um mural de indicações: alguém pergunta "conhecem um eletricista em Juiz de Fora?" e os contatos aparecem no meio da conversa. Funciona, mas a informação se perde em poucos dias e ninguém consegue procurar o que já foi indicado.
 
 O Esquerda Indica organiza isso. Cada pessoa cadastra o próprio trabalho uma vez, mantém os dados atualizados e qualquer membro encontra o contato em segundos.
+
+O app funciona no navegador, mas foi pensado para o celular: dá para instalar na tela inicial como um aplicativo comum.
 
 ## O que já funciona
 
@@ -42,7 +75,7 @@ O Esquerda Indica organiza isso. Cada pessoa cadastra o próprio trabalho uma ve
 - Vagas ficam no ar por 30 dias e podem ser pausadas, renovadas e encerradas.
 - Aba Vagas com busca por texto, estado, cidade, contratação e modalidade.
 
-<p>
+<p align="center">
   <img src="docs/telas/11-vaga.png" width="230" alt="Página de uma vaga">
   <img src="docs/telas/12-minhas-vagas.png" width="230" alt="Minhas vagas">
   <img src="docs/telas/14-conta-empresa.png" width="230" alt="O que falta para anunciar vagas">
@@ -62,53 +95,80 @@ O Esquerda Indica organiza isso. Cada pessoa cadastra o próprio trabalho uma ve
 - Planos com preço e limite de vagas, atribuídos manualmente enquanto a cobrança não está ligada.
 - Configurações gerais: regra de edição do perfil, vagas ligadas ou desligadas, limite padrão e validade das vagas.
 
-<p>
+<p align="center">
   <img src="docs/telas/07-admin-painel.png" width="230" alt="Painel da administração">
   <img src="docs/telas/08-admin-usuario.png" width="230" alt="Gestão de um usuário">
   <img src="docs/telas/16-admin-vagas.png" width="230" alt="Vagas na administração">
 </p>
 
-## Tecnologias
+Todas as telas estão em [docs/telas](docs/telas).
 
-- PHP 8.1 ou mais novo, sem framework e sem Composer.
-- MySQL 8 ou MariaDB 10.6+.
-- HTML, CSS e JavaScript puros. Nenhuma biblioteca de interface: seletores, diálogos, avisos e ícones são próprios do projeto.
-- Fonte Archivo hospedada junto com o app (licença OFL), sem chamadas ao Google Fonts.
-- PWA com service worker: o app pode ser instalado no celular e mostra uma tela própria quando está sem internet. Páginas com dados pessoais nunca ficam em cache.
+## Tecnologias e decisões de projeto
+
+| Camada | Escolha | Por quê |
+|---|---|---|
+| Servidor | PHP 8.1+ puro, sem framework e sem Composer | Roda em qualquer hospedagem, não tem dependência para atualizar e o código é lido de cima a baixo sem "mágica". |
+| Banco | MySQL 8 ou MariaDB 10.6+ | Disponível em todo servidor. Todas as consultas usam parâmetros. |
+| Interface | HTML, CSS e JavaScript puros | Seletores, diálogos, avisos e ícones são do próprio projeto. Nada de biblioteca de interface. |
+| Fonte | Archivo, hospedada junto com o app (licença OFL) | Sem chamadas ao Google Fonts, o que ajuda a privacidade e a velocidade. |
+| Celular | PWA com service worker | Instala na tela inicial e mostra uma tela própria sem internet. Páginas com dados pessoais nunca ficam em cache. |
+
+O resultado é um app que cabe numa hospedagem simples, abre rápido no celular e pode ser entendido por quem sabe o básico de PHP.
 
 ## Rodando no seu computador
 
 Você vai precisar de PHP 8.1+ (com as extensões `pdo_mysql`, `gd` e `mbstring`) e de um MySQL ou MariaDB.
 
 ```bash
-# 1. Banco de dados
+# 1. Baixe o código
+git clone https://github.com/esquerdaindica-gif/esquerda-indica.git esquerda-indica
+cd esquerda-indica
+
+# 2. Crie o banco de dados
 mysql -u root -e "CREATE DATABASE esquerda_indica CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
-# 2. Configuração: copie o exemplo, ajuste o acesso ao banco e deixe 'debug' => true
+# 3. Configuração: copie o exemplo, ajuste o acesso ao banco e deixe 'debug' => true
 cp app/config.example.php app/config.php
 
-# 3. Tabelas, cidades, serviços e o usuário administrador (pede a senha)
+# 4. Tabelas, cidades, serviços e o usuário administrador (pede a senha)
 php bin/instalar.php voce@email.com "Seu nome"
 
-# 4. Opcional: perfis fictícios para ver as telas preenchidas (senha de todos: senha1234)
+# 5. Opcional: perfis fictícios para ver as telas preenchidas (senha de todos: senha1234)
 php bin/dados-exemplo.php
 
-# 5. Servidor de desenvolvimento
+# 6. Servidor de desenvolvimento
 php -S localhost:8080 -t public public/index.php
 ```
 
-Depois é só abrir `http://localhost:8080`.
+Depois é só abrir `http://localhost:8080` e entrar com o e-mail do passo 4.
+
+## Como o código funciona
+
+Toda requisição entra por um único arquivo, `public/index.php`, que descobre qual página chamar. A página faz o trabalho (valida, consulta, grava) e entrega o resultado para uma tela.
+
+```mermaid
+flowchart LR
+    N[Navegador] -->|GET /buscar| I[public/index.php<br>roteador]
+    I -->|carrega| B[app/bootstrap.php<br>config, sessão, lib]
+    I -->|rota encontrada| P[app/pages/buscar.php<br>regras e consultas]
+    P -->|usa| L[app/lib/*<br>banco, login, regras]
+    P -->|render| V[app/views/buscar.php<br>HTML]
+    V --> Y[app/views/layout.php<br>moldura da página]
+    Y -->|HTML| N
+```
+
+O guia de [arquitetura](docs/arquitetura.md) explica cada etapa com exemplos: o ciclo de uma requisição, o padrão dos formulários, o modelo do banco, as migrações e receitas para criar uma página nova ou mudar uma tabela.
 
 ## Publicando
 
-O caminho mais curto num servidor Ubuntu é clonar o repositório e rodar o script de publicação. Ele instala o que faltar, cria o banco, configura o Nginx (ou o Apache, se for ele que já estiver rodando) e ativa o HTTPS:
+O caminho mais curto num servidor Ubuntu (24.04 ou mais novo) é clonar o repositório e rodar o script de publicação. Ele instala o que faltar, cria o banco, configura o Nginx (ou o Apache, se for ele que já estiver rodando) e ativa o HTTPS:
 
 ```bash
 git clone https://github.com/esquerdaindica-gif/esquerda-indica.git /root/esquerda-indica
 bash /root/esquerda-indica/bin/publicar.sh seudominio.com.br seu-email@dominio.com
 ```
 
-Para atualizar, `git pull` e o mesmo comando de novo. Banco, configuração e fotos são mantidos.
+Para atualizar, `git pull` e o mesmo comando de novo. Banco, configuração e fotos são mantidos, e as mudanças de banco pendentes são aplicadas sozinhas.
 
 O passo a passo manual, a configuração do Nginx e do Apache e os ajustes mais comuns estão em [docs/instalacao.md](docs/instalacao.md).
 
@@ -122,28 +182,29 @@ O limite de vagas de cada empresa é decidido em um só lugar (`direito_vagas()`
 
 As tabelas `planos`, `assinaturas` e `pagamentos` já existem. Para começar a cobrar, falta integrar um meio de pagamento que crie a assinatura quando o pagamento for confirmado. O resto do app já respeita o plano.
 
-## Organização do código
+## Organização das pastas
 
 ```
 app/
-  pages/       uma página por rota (lógica e validação)
-  views/       telas em PHP com HTML
-  lib/         banco, autenticação, perfil, regras (edição, CNPJ, vagas, planos),
-               fotos, e-mail, migrações e funções gerais
-  config.example.php
+  bootstrap.php       carrega a configuração, a sessão e as bibliotecas
+  config.example.php  modelo do app/config.php (que nunca vai para o Git)
+  lib/                banco, autenticação, perfil, regras (edição, CNPJ, vagas, planos),
+                      fotos, e-mail, migrações e funções gerais
+  pages/              uma página por rota: valida, consulta e grava
+  views/              telas em PHP com HTML, mais o layout comum
 bin/
-  instalar.php       cria tabelas, importa dados e o administrador
-  migrar.php         aplica mudanças de banco pendentes
-  publicar.sh        publicação e atualização no servidor
-  dados-exemplo.php  perfis fictícios para desenvolvimento
-database/      SQL das tabelas, estados, cidades e tipos de serviço
-  migracoes/   mudanças de banco de cada versão, aplicadas em ordem
-docs/          instalação e capturas de tela
-public/        única pasta exposta na web
-storage/       arquivos privados (fotos de contas excluídas)
+  instalar.php        cria tabelas, importa dados e o administrador
+  migrar.php          aplica mudanças de banco pendentes
+  publicar.sh         publicação e atualização no servidor
+  dados-exemplo.php   perfis fictícios para desenvolvimento
+database/
+  01_estrutura.sql    tabelas da primeira versão
+  02_estados_cidades.sql, 03_servicos.sql   dados iniciais
+  migracoes/          mudanças de banco de cada versão, aplicadas em ordem
+docs/                 instalação, arquitetura e capturas de tela
+public/               única pasta exposta na web (index.php, CSS, JS, ícones, service worker)
+storage/              arquivos privados (fotos de contas excluídas)
 ```
-
-Todas as rotas passam por `public/index.php`. Cada rota aponta para um arquivo em `app/pages/`, que valida, grava e chama uma tela de `app/views/`.
 
 ## Segurança e privacidade
 
@@ -151,13 +212,25 @@ Todas as rotas passam por `public/index.php`. Cada rota aponta para um arquivo e
 - Proteção contra CSRF em todos os formulários e limite de tentativas de login por IP e por e-mail.
 - Consultas ao banco sempre com parâmetros (prepared statements).
 - Fotos reprocessadas no servidor (recorte, redimensionamento e conversão para WebP), o que descarta metadados e qualquer conteúdo escondido no arquivo.
-- A pasta de fotos não executa scripts.
+- A pasta de fotos não executa scripts, e só a pasta `public` fica exposta na web.
 - Contatos só aparecem para quem está logado. As páginas não são indexadas por buscadores.
 
-## Histórico e próximos passos
+Encontrou uma falha? Veja como avisar com segurança em [SECURITY.md](SECURITY.md).
 
-- [CHANGELOG.md](CHANGELOG.md): tudo o que mudou, em ordem cronológica.
-- [ROADMAP.md](ROADMAP.md): o que está planejado para as próximas versões.
+## Documentação
+
+| Documento | Para quê |
+|---|---|
+| [docs/instalacao.md](docs/instalacao.md) | Publicar num servidor, com o script ou passo a passo |
+| [docs/arquitetura.md](docs/arquitetura.md) | Entender o código e fazer mudanças com segurança |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Convenções do projeto e como propor mudanças |
+| [CHANGELOG.md](CHANGELOG.md) | Tudo o que mudou, versão a versão |
+| [ROADMAP.md](ROADMAP.md) | O que está planejado para as próximas versões |
+| [SECURITY.md](SECURITY.md) | Como relatar uma vulnerabilidade |
+
+## Contribuindo
+
+Sugestões e correções são bem-vindas. Abra uma [issue](https://github.com/esquerdaindica-gif/esquerda-indica/issues/new/choose) para relatar um problema ou propor uma ideia, e leia o [CONTRIBUTING.md](CONTRIBUTING.md) antes de enviar um pull request.
 
 ## Licença
 
