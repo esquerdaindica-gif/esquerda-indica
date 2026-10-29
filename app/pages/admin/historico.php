@@ -11,13 +11,15 @@ $grupos = [
     'edicoes'   => 'Edições',
     'pedidos'   => 'Pedidos',
     'moderacao' => 'Moderação',
+    'vagas'     => 'Vagas',
     'exclusoes' => 'Exclusões',
     'cadastros' => 'Cadastros',
 ];
 $mapa = [
-    'edicoes'   => ['edicao', 'edicao_admin'],
+    'edicoes'   => ['edicao', 'edicao_admin', 'empresa', 'edicao_liberada'],
+    'vagas'     => ['vaga', 'vaga_admin', 'vagas_acesso', 'plano'],
     'pedidos'   => ['solicitacao', 'solicitacao_ok', 'solicitacao_nao'],
-    'moderacao' => ['bloqueio', 'desbloqueio', 'limite', 'senha_admin', 'servico'],
+    'moderacao' => ['bloqueio', 'desbloqueio', 'limite', 'senha_admin', 'servico', 'config'],
     'exclusoes' => ['exclusao_usuario', 'exclusao_admin'],
     'cadastros' => ['cadastro'],
 ];

@@ -12,6 +12,9 @@ if (is_post()) {
     switch ($acao) {
         case 'salvar':
             [$d, $erros, $extras] = validar_perfil($_POST, $p);
+            [$emp, $errosEmp] = validar_empresa($_POST, $id);
+            $erros += $errosEmp;
+            $d += $emp;
             $email = mb_strtolower(trim((string)input('email')));
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $erros['email'] = 'Informe um e-mail válido.';
             elseif (val('SELECT id FROM usuarios WHERE email = ? AND id <> ?', [$email, $id])) $erros['email'] = 'Este e-mail já está em uso em outra conta.';
@@ -81,6 +84,45 @@ if (is_post()) {
             flash('sucesso', 'Nova senha definida. Passe a senha para o usuário por um canal seguro.');
             redirect($aqui);
 
+        case 'liberar_edicao':
+            liberar_edicao($id);
+            historico($id, $label, 'edicao_liberada', 'Edição do perfil liberada pela administração');
+            flash('sucesso', 'Edição liberada. O usuário já pode editar o perfil.');
+            redirect($aqui);
+
+        case 'vagas':
+            $modo = in_array(input('vagas_modo'), ['auto', 'liberado', 'bloqueado'], true) ? input('vagas_modo') : 'auto';
+            $limite = input('limite_proprio') ? max(0, min(50, (int)input('vagas_limite'))) : null;
+            $antes = direito_vagas($p);
+            q('UPDATE usuarios SET vagas_modo = ?, vagas_limite = ? WHERE id = ?', [$modo, $limite, $id]);
+            $pausadas = 0;
+            if ($modo === 'bloqueado') {
+                $pausadas = q("UPDATE vagas SET status = 'pausada', atualizado_em = NOW() WHERE usuario_id = ? AND status = 'ativa'", [$id])->rowCount();
+            }
+            $depois = direito_vagas(one('SELECT * FROM usuarios WHERE id = ?', [$id]));
+            $txt = ['auto' => 'automático', 'liberado' => 'sempre liberado', 'bloqueado' => 'bloqueado'][$modo];
+            historico($id, $label, 'vagas_acesso', "Acesso a vagas: $txt, limite " . ($limite === null ? 'padrão' : $limite) . ($pausadas ? " ($pausadas vaga(s) pausada(s))" : ''),
+                ['antes' => ['modo' => $p['vagas_modo'], 'limite_efetivo' => $antes['limite']], 'depois' => ['modo' => $modo, 'limite_efetivo' => $depois['limite']]]);
+            flash('sucesso', 'Vagas atualizadas.' . ($pausadas ? " $pausadas vaga(s) ativa(s) foram pausadas." : '') . ($depois['ativas'] > $depois['limite'] ? ' A conta tem mais vagas ativas que o novo limite: elas continuam no ar, mas novas não podem ser publicadas.' : ''));
+            redirect($aqui);
+
+        case 'plano':
+            $planoId = (int)input('plano_id');
+            q("UPDATE assinaturas SET status = 'cancelada', atualizado_em = NOW() WHERE usuario_id = ? AND status = 'ativa'", [$id]);
+            if ($planoId) {
+                $pl = one('SELECT * FROM planos WHERE id = ?', [$planoId]);
+                if (!$pl) redirect($aqui);
+                $dias = (int)input('dias');
+                q("INSERT INTO assinaturas (usuario_id, plano_id, status, origem, inicio_em, fim_em, observacao) VALUES (?, ?, 'ativa', 'admin', NOW(), " . ($dias > 0 ? 'NOW() + INTERVAL ? DAY' : 'NULL') . ', ?)',
+                    $dias > 0 ? [$id, $planoId, $dias, 'Atribuído pela administração'] : [$id, $planoId, 'Atribuído pela administração']);
+                historico($id, $label, 'plano', "Plano {$pl['nome']} atribuído" . ($dias > 0 ? " por $dias dias" : ' sem data de término'));
+                flash('sucesso', "Plano {$pl['nome']} aplicado.");
+            } else {
+                historico($id, $label, 'plano', 'Plano removido. Vale o limite padrão');
+                flash('sucesso', 'Plano removido.');
+            }
+            redirect($aqui);
+
         case 'excluir':
             $motivo = mb_substr(trim((string)input('motivo')), 0, 255);
             excluir_usuario($id, 'admin', 'Cadastro excluído pela administração' . ($motivo ? ": $motivo" : ''), $motivo ?: null);
@@ -95,6 +137,9 @@ if (input('editar')) {
 }
 
 render('admin/usuario', [
+    'dv' => direito_vagas($p),
+    'planos' => all('SELECT * FROM planos WHERE ativo = 1 ORDER BY ordem, preco_centavos'),
+    'vagas' => all(VAGA_SELECT . ' WHERE v.usuario_id = ? ORDER BY v.publicada_em DESC', [$id]),
     'titulo' => nome_exibicao($p),
     'voltar' => url('admin/usuarios'),
     'aba' => 'admin',

@@ -5,6 +5,7 @@
   <?= csrf_field() ?>
   <input type="hidden" name="acao" value="salvar">
   <?php partial('form_perfil', ['p' => $p, 'modo' => 'admin']); ?>
+  <?php partial('form_empresa', ['p' => $p, 'modo' => 'admin']); ?>
   <section class="form-bloco">
     <h2 class="form-bloco-titulo">E-mail de acesso</h2>
     <div class="campo<?= tem_erro('email') ?>">

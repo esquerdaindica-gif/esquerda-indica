@@ -1,4 +1,5 @@
-<?php $aqui = url('admin/usuarios/' . $p['id']); $rest = edicoes_restantes($p); ?>
+<?= dados_js(['planos' => array_map(fn($pl) => ['v' => (string)$pl['id'], 't' => $pl['nome'], 's' => $pl['limite_vagas'] . ' vagas'], $planos)]) ?>
+<?php $aqui = url('admin/usuarios/' . $p['id']); $rest = edicoes_restantes($p); $ed = situacao_edicao($p); ?>
 <header class="perfil-cabeca" style="padding-top:20px">
   <?= avatar($p, 'avatar-g') ?>
   <h1 class="perfil-nome" style="font-size:28px"><?= e(nome_exibicao($p)) ?></h1>
@@ -6,6 +7,7 @@
   <div class="perfil-meta">
     <?php if ($p['status'] === 'bloqueado'): ?><span class="etiqueta etiqueta-vermelha"><?= icon('bloquear') ?> Bloqueado</span><?php else: ?><span class="etiqueta etiqueta-verde"><?= icon('check') ?> Ativo</span><?php endif; ?>
     <span class="etiqueta"><?= e(servico_label($p)) ?></span>
+    <?php if ($p['cnpj']): ?><span class="etiqueta etiqueta-preta"><?= icon('predio') ?> CNPJ <?= e(fmt_cnpj($p['cnpj'])) ?></span><?php endif; ?>
     <span class="perfil-local"><?= icon('local') ?><?= e(local_label($p)) ?></span>
   </div>
 </header>
@@ -25,6 +27,22 @@
 </section>
 
 <section class="secao">
+  <?php if ($ed['modo'] === 'intervalo'): ?>
+    <div class="cartao">
+      <p style="font-weight:800;font-size:17px">Alterações do perfil</p>
+      <p class="texto-pequeno texto-fraco">
+        Regra atual do site: 1 alteração a cada <?= (int)$ed['horas'] ?> horas.
+        <?php if ($p['ultima_edicao_em']): ?>Última edição <?= e(tempo_relativo($p['ultima_edicao_em'])) ?>.<?php else: ?>Ainda não editou o perfil.<?php endif; ?>
+      </p>
+      <p style="margin-top:10px;font-weight:700"><?= $ed['pode'] ? 'Pode editar agora.' : 'Próxima liberada ' . e(quando_liberada($ed['liberada_em'])) . '.' ?></p>
+      <?php if (!$ed['pode']): ?>
+        <form method="post" action="<?= e($aqui) ?>" style="margin-top:12px"><?= csrf_field() ?>
+          <button type="submit" name="acao" value="liberar_edicao" class="botao botao-claro botao-pequeno"><?= icon('reiniciar') ?> Liberar edição agora</button>
+        </form>
+      <?php endif; ?>
+      <p class="campo-ajuda" style="margin-top:10px">Edições feitas aqui pela administração não contam. A regra do site é definida em <a class="link" href="<?= e(url('admin/configuracoes')) ?>">Configurações</a>.</p>
+    </div>
+  <?php else: ?>
   <form method="post" action="<?= e($aqui) ?>" class="cartao">
     <?= csrf_field() ?>
     <input type="hidden" name="acao" value="limite">
@@ -43,7 +61,77 @@
       <button type="submit" name="acao" value="zerar" class="botao botao-claro botao-pequeno"><?= icon('reiniciar') ?> Zerar usadas</button>
     </div>
   </form>
+  <?php endif; ?>
 </section>
+
+<section class="secao">
+  <form method="post" action="<?= e($aqui) ?>" class="cartao form" style="gap:14px">
+    <?= csrf_field() ?>
+    <input type="hidden" name="acao" value="vagas">
+    <div>
+      <p style="font-weight:800;font-size:17px">Vagas de emprego</p>
+      <p class="texto-pequeno texto-fraco">
+        <?php if ($dv['habilitado']): ?>Liberado. <?= (int)$dv['ativas'] ?> de <?= (int)$dv['limite'] ?> vagas ativas (limite <?= ['admin' => 'definido aqui', 'plano' => 'do plano ' . e($dv['plano']['nome'] ?? ''), 'padrao' => 'padrão do site'][$dv['origem']] ?>).
+        <?php elseif ($dv['motivo'] === 'dados'): ?>Não liberado: falta <?= e(implode(' e ', array_map(fn($k) => $k === 'cnpj' ? 'CNPJ válido' : 'razão social', $dv['faltando']))) ?>.
+        <?php elseif ($dv['motivo'] === 'desligado'): ?>A função de vagas está desligada para todo o site.
+        <?php else: ?>Bloqueado pela administração.<?php endif; ?>
+      </p>
+    </div>
+    <div class="opcoes">
+      <?php foreach (['auto' => ['Automático', 'Libera quando CNPJ e razão social estão preenchidos'], 'liberado' => ['Sempre liberado', 'Libera mesmo sem CNPJ'], 'bloqueado' => ['Bloqueado', 'Não pode anunciar. Vagas ativas são pausadas']] as $k => [$t, $d]): ?>
+        <label class="opcao"><input type="radio" name="vagas_modo" value="<?= $k ?>"<?= $p['vagas_modo'] === $k ? ' checked' : '' ?>><span class="opcao-corpo"><span class="opcao-titulo"><?= $t ?></span><span class="opcao-texto"><?= $d ?></span></span></label>
+      <?php endforeach; ?>
+    </div>
+    <label class="chave-linha">
+      <span><strong>Limite próprio para esta conta</strong><br><span class="texto-fraco texto-pequeno">Desligado, vale o plano ou o padrão do site (<?= (int)cfg('vagas_limite_padrao') ?>)</span></span>
+      <input type="checkbox" name="limite_proprio" value="1"<?= $p['vagas_limite'] !== null ? ' checked' : '' ?>>
+      <span class="chave" aria-hidden="true"></span>
+    </label>
+    <div class="campo" data-se="limite_proprio=1">
+      <span class="campo-rotulo">Vagas ativas ao mesmo tempo</span>
+      <div class="passo-numero" data-passo><button type="button" data-delta="-1" aria-label="Diminuir"><?= icon('menos') ?></button><input type="number" name="vagas_limite" value="<?= (int)($p['vagas_limite'] ?? cfg('vagas_limite_padrao')) ?>" min="0" max="50" inputmode="numeric" aria-label="Limite de vagas"><button type="button" data-delta="1" aria-label="Aumentar"><?= icon('mais') ?></button></div>
+    </div>
+    <div><button type="submit" class="botao botao-primario botao-pequeno">Salvar</button></div>
+  </form>
+</section>
+
+<?php if ($planos): ?>
+<section class="secao">
+  <form method="post" action="<?= e($aqui) ?>" class="cartao form" style="gap:14px">
+    <?= csrf_field() ?>
+    <input type="hidden" name="acao" value="plano">
+    <div>
+      <p style="font-weight:800;font-size:17px">Plano</p>
+      <p class="texto-pequeno texto-fraco">
+        <?php if ($dv['plano']): ?>Plano <strong style="color:var(--preto)"><?= e($dv['plano']['nome']) ?></strong> ativo<?= $dv['plano']['fim_em'] ? ' até ' . e(data_br($dv['plano']['fim_em'])) : ', sem data de término' ?>.
+        <?php else: ?>Sem plano. Vale o limite padrão do site.<?php endif; ?>
+        A cobrança automática ainda não está ligada: aqui o plano é atribuído manualmente.
+      </p>
+    </div>
+    <div class="campo">
+      <span class="campo-rotulo">Plano</span>
+      <?= seletor('plano_id', ['titulo' => 'Plano', 'vazio' => 'Escolha', 'fonte' => 'planos', 'limpar' => 'Sem plano', 'valor' => $dv['plano']['id'] ?? '', 'rotulo' => $dv['plano']['nome'] ?? '']) ?>
+    </div>
+    <div class="campo">
+      <label class="campo-rotulo" for="c-dias">Válido por quantos dias <small>(vazio = sem término)</small></label>
+      <input class="entrada" id="c-dias" name="dias" inputmode="numeric" placeholder="Ex.: 30" style="max-width:160px">
+    </div>
+    <div><button type="submit" class="botao botao-primario botao-pequeno">Aplicar plano</button></div>
+  </form>
+</section>
+<?php endif; ?>
+
+<?php if ($vagas): ?>
+<section class="secao">
+  <h2 class="secao-titulo" style="margin-bottom:4px">Vagas desta conta</h2>
+  <?php foreach ($vagas as $vg): ?>
+    <a class="registro" href="<?= e(url('admin/vagas', ['id' => $vg['id']])) ?>">
+      <div class="registro-topo"><span class="registro-titulo"><?= e($vg['titulo']) ?></span><span class="etiqueta"><?= e(situacao_vaga($vg)) ?></span></div>
+      <p class="registro-texto"><?= e(VAGA_CONTRATOS[$vg['contrato']]) ?>, <?= e(vaga_local($vg)) ?>. Publicada em <?= e(data_br($vg['publicada_em'])) ?>.</p>
+    </a>
+  <?php endforeach; ?>
+</section>
+<?php endif; ?>
 
 <section class="secao">
   <nav class="menu">

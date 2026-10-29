@@ -5,7 +5,7 @@
   </div>
   <input type="hidden" name="status" value="<?= e($status) ?>">
   <div class="chips chips-rolagem">
-    <?php foreach (['' => 'Todos', 'ativo' => 'Ativos', 'bloqueado' => 'Bloqueados', 'sem_alteracoes' => 'Sem alterações'] as $k => $rot): ?>
+    <?php foreach (['' => 'Todos', 'ativo' => 'Ativos', 'bloqueado' => 'Bloqueados', 'empresas' => 'Empresas'] + (cfg('edicao_modo') === 'limite' ? ['sem_alteracoes' => 'Sem alterações'] : []) as $k => $rot): ?>
       <a class="chip<?= $status === $k ? ' ativo' : '' ?>" href="<?= e(url('admin/usuarios', ['q' => $q, 'status' => $k])) ?>"><?= e($rot) ?></a>
     <?php endforeach; ?>
   </div>
@@ -25,7 +25,8 @@
           <p class="item-linha"><?= e($r['email']) ?></p>
           <p class="item-linha" style="display:flex;gap:6px;margin-top:4px">
             <?php if ($r['status'] === 'bloqueado'): ?><span class="etiqueta etiqueta-vermelha">Bloqueado</span><?php endif; ?>
-            <span class="etiqueta<?= $rest ? '' : ' etiqueta-preta' ?>"><?= (int)$r['edicoes_usadas'] ?> de <?= (int)$r['edicoes_limite'] ?> alterações</span>
+            <?php if ($r['cnpj']): ?><span class="etiqueta etiqueta-preta">Empresa</span><?php endif; ?>
+            <?php if (cfg('edicao_modo') === 'limite'): ?><span class="etiqueta<?= $rest ? '' : ' etiqueta-preta' ?>"><?= (int)$r['edicoes_usadas'] ?> de <?= (int)$r['edicoes_limite'] ?> alterações</span><?php endif; ?>
           </p>
         </div>
         <?= icon('seta') ?>

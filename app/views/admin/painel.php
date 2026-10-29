@@ -11,6 +11,8 @@
     <a class="indicador" href="<?= e(url('admin/usuarios', ['status' => 'bloqueado'])) ?>"><strong><?= numero($ind['bloqueados']) ?></strong><span>Bloqueados</span></a>
     <a class="indicador" href="<?= e(url('admin/usuarios', ['ordem' => 'recentes'])) ?>"><strong><?= numero($ind['novos7']) ?></strong><span>Novos em 7 dias</span></a>
     <a class="indicador" href="<?= e(url('admin/historico', ['acao' => 'exclusoes'])) ?>"><strong><?= numero($excluidos) ?></strong><span>Contas excluídas</span></a>
+    <a class="indicador" href="<?= e(url('admin/vagas')) ?>"><strong><?= numero($vagasNoAr) ?></strong><span><?= $vagasNoAr === 1 ? 'Vaga no ar' : 'Vagas no ar' ?></span></a>
+    <a class="indicador" href="<?= e(url('admin/usuarios', ['status' => 'empresas'])) ?>"><strong><?= numero($empresas) ?></strong><span>Empresas com CNPJ</span></a>
   </div>
 </section>
 
@@ -19,7 +21,10 @@
     <a class="menu-item" href="<?= e(url('admin/usuarios')) ?>"><?= icon('usuarios') ?><span>Usuários</span><?= icon('seta') ?></a>
     <a class="menu-item" href="<?= e(url('admin/solicitacoes')) ?>"><?= icon('caixa') ?><span>Pedidos de alteração<?php if ($pendentes): ?> <b class="etiqueta etiqueta-vermelha"><?= $pendentes ?></b><?php endif; ?></span><?= icon('seta') ?></a>
     <a class="menu-item" href="<?= e(url('admin/historico')) ?>"><?= icon('historico') ?><span>Histórico de atualizações</span><?= icon('seta') ?></a>
+    <a class="menu-item" href="<?= e(url('admin/vagas')) ?>"><?= icon('vaga') ?><span>Vagas de emprego</span><?= icon('seta') ?></a>
     <a class="menu-item" href="<?= e(url('admin/servicos')) ?>"><?= icon('etiqueta') ?><span>Tipos de serviço</span><?= icon('seta') ?></a>
+    <a class="menu-item" href="<?= e(url('admin/planos')) ?>"><?= icon('plano') ?><span>Planos</span><?= icon('seta') ?></a>
+    <a class="menu-item" href="<?= e(url('admin/configuracoes')) ?>"><?= icon('ajustes') ?><span>Configurações</span><?= icon('seta') ?></a>
   </nav>
 </section>
 

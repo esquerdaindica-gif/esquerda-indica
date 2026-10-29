@@ -1,6 +1,6 @@
 <?php
 $rotulosSnap = [
-    'email' => 'E-mail', 'responsavel' => 'Responsável', 'empresa' => 'Empresa ou nome', 'telefone' => 'Telefone',
+    'email' => 'E-mail', 'responsavel' => 'Responsável', 'empresa' => 'Empresa ou nome', 'cnpj' => 'CNPJ', 'razao_social' => 'Razão social', 'telefone' => 'Telefone',
     'whatsapp' => 'WhatsApp', 'instagram' => 'Instagram', 'descricao' => 'Descrição', 'servico' => 'Serviço',
     'cidade' => 'Cidade', 'atendimento' => 'Atendimento', 'cidades_extra' => 'Outras cidades', 'atende_online' => 'Atende online',
     'status' => 'Situação', 'edicoes' => 'Alterações', 'lgpd_aceite' => 'Aceite da política', 'cadastrado_em' => 'Cadastro em',
@@ -60,6 +60,30 @@ $autorTxt = ['usuario' => 'O próprio usuário', 'admin' => 'Administração', '
       <p class="registro-texto"><?= e($s['motivo']) ?></p>
     </div>
   <?php endforeach; ?>
+</section>
+<?php endif; ?>
+
+<?php if (!empty($dados['vagas'])): ?>
+<section class="secao">
+  <h2 class="secao-titulo" style="margin-bottom:8px">Vagas anunciadas</h2>
+  <?php foreach ($dados['vagas'] as $vg): ?>
+    <div class="registro">
+      <div class="registro-topo"><span class="registro-titulo"><?= e($vg['titulo']) ?></span><span class="etiqueta"><?= e($vg['status']) ?></span></div>
+      <p class="registro-texto"><?= e($vg['contrato'] . ', ' . $vg['modalidade'] . ', ' . ($vg['local'] ?? '') . '. ' . $vg['salario'] . '. Contato ' . $vg['contato']) ?></p>
+    </div>
+  <?php endforeach; ?>
+</section>
+<?php endif; ?>
+
+<?php if (!empty($dados['vaga']) && is_array($dados['vaga'])): $vg = $dados['vaga']; ?>
+<section class="secao">
+  <h2 class="secao-titulo" style="margin-bottom:8px">Vaga</h2>
+  <table class="tabela-dif">
+    <?php foreach (['titulo' => 'Título', 'contrato' => 'Contratação', 'modalidade' => 'Modalidade', 'local' => 'Local', 'quantidade' => 'Quantidade', 'salario' => 'Salário', 'contato' => 'Contato', 'status' => 'Situação'] as $k => $rot): if (!isset($vg[$k])) continue; ?>
+      <tr><th><?= e($rot) ?></th><td><?= e($vg[$k]) ?></td></tr>
+    <?php endforeach; ?>
+  </table>
+  <?php if (!empty($vg['id']) && val('SELECT id FROM vagas WHERE id = ?', [$vg['id']])): ?><a class="botao botao-secundario botao-bloco" style="margin-top:12px" href="<?= e(url('vagas/' . $vg['id'])) ?>">Abrir vaga</a><?php endif; ?>
 </section>
 <?php endif; ?>
 

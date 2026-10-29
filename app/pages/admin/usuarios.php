@@ -16,6 +16,7 @@ if ($q !== '') {
 }
 if ($status === 'ativo' || $status === 'bloqueado') { $w[] = 'u.status = ?'; $p[] = $status; }
 if ($status === 'sem_alteracoes') $w[] = 'u.edicoes_usadas >= u.edicoes_limite';
+if ($status === 'empresas') $w[] = 'u.cnpj IS NOT NULL';
 $where = implode(' AND ', $w);
 
 $total = (int)val("SELECT COUNT(*) FROM usuarios u WHERE $where", $p);
