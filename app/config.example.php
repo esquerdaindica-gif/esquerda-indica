@@ -31,9 +31,6 @@ return [
     // E-mail que aparece na política de privacidade para pedidos sobre dados pessoais
     'email_contato' => 'contato@esquerdaindica.com.br',
 
-    // Quantas alterações de perfil cada novo usuário pode fazer sem pedir liberação
-    'edicoes_padrao' => 2,
-
     'timezone' => 'America/Sao_Paulo',
 
     // true apenas em desenvolvimento: mostra erros na tela

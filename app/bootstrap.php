@@ -38,6 +38,8 @@ require APP_DIR . '/lib/auth.php';
 require APP_DIR . '/lib/perfil.php';
 require APP_DIR . '/lib/foto.php';
 require APP_DIR . '/lib/mail.php';
+require APP_DIR . '/lib/migracoes.php';
+require APP_DIR . '/lib/regras.php';
 
 if (PHP_SAPI !== 'cli') {
     $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')

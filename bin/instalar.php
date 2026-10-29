@@ -16,13 +16,10 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 echo "Criando tabelas e importando dados...\n";
 foreach (['01_estrutura.sql', '02_estados_cidades.sql', '03_servicos.sql'] as $arq) {
-    $sql = file_get_contents(APP_ROOT . '/database/' . $arq);
-    foreach (preg_split('/;\s*\n/', $sql) as $cmd) {
-        $cmd = trim(preg_replace('/^(#|--).*$/m', '', $cmd));
-        if ($cmd !== '') db()->exec($cmd);
-    }
+    foreach (comandos_sql((string)file_get_contents(APP_ROOT . '/database/' . $arq)) as $cmd) db()->exec($cmd);
     echo "  ok  $arq\n";
 }
+aplicar_migracoes(fn($n) => print("  ok  migracoes/$n\n"));
 printf("  %d estados, %d cidades, %d tipos de serviço\n",
     val('SELECT COUNT(*) FROM estados'), val('SELECT COUNT(*) FROM cidades'), val('SELECT COUNT(*) FROM servicos'));
 

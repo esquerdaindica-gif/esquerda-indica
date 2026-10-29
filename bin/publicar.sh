@@ -123,15 +123,8 @@ if [ "$NOVO" = 1 ]; then
   echo "Agora defina a senha do administrador ($EMAIL_ADMIN):"
   php "$PASTA/bin/instalar.php" "$EMAIL_ADMIN" "Administração"
 else
-  # Em atualizações só roda o SQL (idempotente), sem mexer na senha do admin
-  php -r '
-    require "'"$PASTA"'/app/bootstrap.php";
-    foreach (["01_estrutura.sql","02_estados_cidades.sql","03_servicos.sql"] as $a) {
-      foreach (preg_split("/;\s*\n/", file_get_contents(APP_ROOT."/database/".$a)) as $c) {
-        $c = trim(preg_replace("/^(#|--).*$/m", "", $c)); if ($c !== "") db()->exec($c);
-      }
-    }
-    echo "  tabelas em dia\n";'
+  # Em atualizações só aplica as mudanças de banco pendentes, sem mexer na senha do admin
+  php "$PASTA/bin/migrar.php"
 fi
 
 chown -R root:www-data "$PASTA"
