@@ -1,0 +1,34 @@
+name: Sugerir uma melhoria
+description: Uma ideia nova ou um jeito melhor de fazer algo
+labels: ["sugestão"]
+body:
+  - type: textarea
+    id: problema
+    attributes:
+      label: Qual necessidade isso resolve
+      description: Conte a situação do dia a dia que motivou a ideia.
+      placeholder: Quem procura um profissional não sabe se ele ainda atende, porque alguns perfis estão parados há meses.
+    validations:
+      required: true
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Como você imagina a solução
+      placeholder: Mostrar no perfil a data da última atualização.
+    validations:
+      required: true
+  - type: dropdown
+    id: quem
+    attributes:
+      label: Para quem é
+      options:
+        - Quem procura profissionais
+        - Profissionais cadastrados
+        - Empresas que anunciam vagas
+        - Administração
+    validations:
+      required: true
+  - type: textarea
+    id: alternativas
+    attributes:
+      label: Alternativas que você considerou

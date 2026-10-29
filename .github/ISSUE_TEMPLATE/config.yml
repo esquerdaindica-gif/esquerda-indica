@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Relatar uma falha de segurança
+    url: https://github.com/esquerdaindica-gif/esquerda-indica/security/advisories/new
+    about: Relato privado, visto só pelo mantenedor.
+  - name: Entender o código
+    url: https://github.com/esquerdaindica-gif/esquerda-indica/blob/main/docs/arquitetura.md
+    about: Guia de arquitetura com o caminho de uma requisição e receitas.

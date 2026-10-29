@@ -1,0 +1,46 @@
+name: Verificação
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  php:
+    name: Sintaxe PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.1', '8.3', '8.4']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - name: php -l em todos os arquivos
+        run: find . -name '*.php' -not -path './.git/*' -print0 | xargs -0 -n1 -P4 php -l
+
+  script:
+    name: Script de publicação
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck bin/publicar.sh
+        run: shellcheck -S warning bin/publicar.sh
+
+  textos:
+    name: Textos sem travessão
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Procura travessão nos arquivos de texto
+        run: |
+          if grep -rnI --exclude-dir=.git -e $'\xe2\x80\x94' -e $'\xe2\x80\x93' .; then
+            echo "::error::Encontrado travessão. Use ponto, vírgula ou dois-pontos (veja CONTRIBUTING.md)."
+            exit 1
+          fi
+          echo "Nenhum travessão encontrado."
