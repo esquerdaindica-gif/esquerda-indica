@@ -69,7 +69,7 @@ echo dados_js(['servicos' => dados_servicos_js(), 'estados' => dados_estados_js(
   <h2 class="form-bloco-titulo">O que você faz</h2>
   <div class="campo<?= tem_erro('servico_id') ?>">
     <span class="campo-rotulo">Tipo de serviço</span>
-    <?= seletor('servico_id', ['titulo' => 'Tipo de serviço', 'vazio' => 'Escolha o seu serviço', 'fonte' => 'servicos', 'outro' => true, 'valor' => $servicoId, 'rotulo' => $servicoRotulo, 'icone' => 'servico']) ?>
+    <?= seletor('servico_id', ['titulo' => 'Tipo de serviço', 'vazio' => 'Escolha o seu serviço', 'fonte' => 'servicos', 'outro' => true, 'valor' => $servicoId, 'rotulo' => $servicoRotulo, 'icone' => 'ferramenta']) ?>
     <?= erro('servico_id') ?>
   </div>
   <div class="campo<?= tem_erro('servico_outro') ?>" data-campo-outro<?= $servicoId === 'outro' ? '' : ' hidden' ?>>

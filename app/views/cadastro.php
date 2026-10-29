@@ -8,6 +8,7 @@
   <div hidden aria-hidden="true"><label>Site <input name="site" tabindex="-1" autocomplete="off"></label></div>
 
   <?php partial('form_perfil', ['p' => [], 'modo' => 'cadastro']); ?>
+  <?php partial('form_empresa', ['p' => [], 'modo' => 'cadastro']); ?>
 
   <section class="form-bloco">
     <h2 class="form-bloco-titulo">Dados de acesso</h2>

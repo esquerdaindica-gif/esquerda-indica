@@ -11,6 +11,8 @@ const ROTULOS_CAMPOS = [
     'email'         => 'E-mail',
     'responsavel'   => 'Nome do responsável',
     'empresa'       => 'Empresa ou nome completo',
+    'cnpj'          => 'CNPJ',
+    'razao_social'  => 'Razão social',
     'telefone'      => 'Telefone',
     'whatsapp'      => 'WhatsApp',
     'instagram'     => 'Instagram',
@@ -187,6 +189,8 @@ function perfil_snapshot(int $uid): array
         'email'         => $p['email'],
         'responsavel'   => $p['responsavel'],
         'empresa'       => $p['empresa'],
+        'cnpj'          => $p['cnpj'] ? fmt_cnpj($p['cnpj']) : null,
+        'razao_social'  => $p['razao_social'],
         'telefone'      => $p['telefone'] ? fmt_telefone($p['telefone']) : null,
         'whatsapp'      => $p['whatsapp'] ? fmt_telefone($p['whatsapp']) : null,
         'instagram'     => $p['instagram'] ? '@' . $p['instagram'] : null,
@@ -246,10 +250,11 @@ function excluir_usuario(int $uid, string $autorTipo, string $resumo, ?string $m
     if (!$u) return;
     $snap = perfil_snapshot($uid);
     $pedidos = all('SELECT motivo, status, resposta, criado_em, resolvido_em FROM solicitacoes WHERE usuario_id = ? ORDER BY id', [$uid]);
+    $vagas = array_map('vaga_snapshot', all(VAGA_SELECT . ' WHERE v.usuario_id = ? ORDER BY v.id', [$uid]));
     $label = label_usuario($u);
-    transacao(function () use ($uid, $u, $snap, $pedidos, $label, $autorTipo, $resumo, $motivo) {
+    transacao(function () use ($uid, $u, $snap, $pedidos, $vagas, $label, $autorTipo, $resumo, $motivo) {
         historico($uid, $label, $autorTipo === 'admin' ? 'exclusao_admin' : 'exclusao_usuario', $resumo,
-            ['perfil' => $snap, 'pedidos' => $pedidos, 'motivo' => $motivo], $autorTipo);
+            ['perfil' => $snap, 'pedidos' => $pedidos, 'vagas' => $vagas, 'motivo' => $motivo], $autorTipo);
         q('UPDATE historico SET usuario_label = ? WHERE usuario_id = ?', [$label . ' [excluído]', $uid]);
         q('DELETE FROM usuarios WHERE id = ?', [$uid]);
     });

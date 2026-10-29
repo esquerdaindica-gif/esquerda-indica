@@ -6,6 +6,8 @@ if (is_post()) {
     if (!empty($_POST['site'])) redirect('/');
 
     [$d, $erros, $extras] = validar_perfil($_POST);
+    [$emp, $errosEmp] = validar_empresa($_POST);
+    $erros += $errosEmp;
 
     $email = mb_strtolower(trim((string)input('email')));
     if (!filter_var($email, FILTER_VALIDATE_EMAIL) || mb_strlen($email) > 190) $erros['email'] = 'Informe um e-mail válido.';
@@ -27,12 +29,12 @@ if (is_post()) {
         redirect('cadastro');
     }
 
-    $uid = transacao(function () use ($d, $extras, $email, $senha, $foto) {
+    $uid = transacao(function () use ($d, $emp, $extras, $email, $senha, $foto) {
         q('INSERT INTO usuarios (email, senha_hash, responsavel, edicoes_limite, lgpd_aceite_em, foto) VALUES (?,?,?,?,NOW(),?)', [
-            $email, password_hash($senha, PASSWORD_DEFAULT), $d['responsavel'], (int)config('edicoes_padrao', 2), $foto,
+            $email, password_hash($senha, PASSWORD_DEFAULT), $d['responsavel'], (int)cfg('edicoes_padrao'), $foto,
         ]);
         $uid = (int)db()->lastInsertId();
-        salvar_perfil($uid, $d, $extras);
+        salvar_perfil($uid, $d + $emp, $extras);
         q('UPDATE usuarios SET atualizado_em = NULL WHERE id = ?', [$uid]);
         return $uid;
     });
@@ -41,6 +43,10 @@ if (is_post()) {
     fazer_login($u);
     $snap = perfil_snapshot($uid);
     historico($uid, label_usuario($u), 'cadastro', 'Criou a conta e aceitou a política de privacidade', ['perfil' => $snap], 'usuario');
+    if ($emp['cnpj'] && direito_vagas($u)['habilitado']) {
+        flash('sucesso', 'Cadastro feito. Seu perfil já aparece nas buscas e você já pode anunciar vagas.');
+        redirect('conta/vagas');
+    }
     flash('sucesso', 'Cadastro feito. Seu perfil já aparece nas buscas.');
     redirect('/');
 }
