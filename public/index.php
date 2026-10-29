@@ -29,6 +29,12 @@ $rotas = [
     '/conta/senha'               => 'conta_senha',
     '/conta/solicitar'           => 'conta_solicitar',
     '/conta/excluir'             => 'conta_excluir',
+    '/conta/empresa'             => 'conta_empresa',
+    '/conta/vagas'               => 'conta_vagas',
+    '/conta/vagas/nova'          => 'conta_vaga_form',
+    '#^/conta/vagas/(\d+)$#'     => 'conta_vaga_form',
+    '/vagas'                     => 'vagas',
+    '#^/vagas/(\d+)$#'           => 'vaga',
     '/privacidade'               => 'privacidade',
     '/offline'                   => 'offline',
     '/admin'                     => 'admin/painel',
@@ -38,6 +44,9 @@ $rotas = [
     '/admin/historico'           => 'admin/historico',
     '#^/admin/historico/(\d+)$#' => 'admin/historico_item',
     '/admin/servicos'            => 'admin/servicos',
+    '/admin/vagas'               => 'admin/vagas',
+    '/admin/planos'              => 'admin/planos',
+    '/admin/configuracoes'       => 'admin/configuracoes',
 ];
 
 $pagina = null;

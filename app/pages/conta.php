@@ -10,7 +10,8 @@ render('conta', [
     'titulo' => 'Minha conta',
     'aba' => 'conta',
     'p' => $p,
-    'restantes' => edicoes_restantes($p),
+    'ed' => situacao_edicao($p),
+    'dv' => direito_vagas($p),
     'pendente' => $pendente,
     'ultimaResolvida' => $ultimaResolvida,
 ]);

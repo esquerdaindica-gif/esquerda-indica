@@ -811,3 +811,56 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
 .menu > form .menu-item { border-bottom: 0; }
 .menu > form:not(:last-child) .menu-item { border-bottom: 1px solid var(--linha); }
 .servico-linha form { display: contents; }
+
+/* ========== Vagas ========== */
+
+.checklist { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 8px; }
+.checklist li { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; }
+.checklist-marca {
+  flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--branco); border: 2px solid var(--vermelho-linha); color: var(--vermelho);
+}
+.checklist-marca .ic { width: 14px; height: 14px; stroke-width: 3; }
+.checklist li.ok { color: var(--grafite); font-weight: 500; }
+.checklist li.ok .checklist-marca { background: var(--verde); border-color: var(--verde); color: var(--branco); }
+
+.uso-vagas { margin-top: 14px; }
+.uso-vagas-num { font-size: 15px; color: var(--grafite); }
+.uso-vagas-num strong {
+  font-size: 34px; line-height: 1; color: var(--vermelho); font-weight: 900;
+  font-variation-settings: "wdth" 62; margin-right: 2px; font-variant-numeric: tabular-nums;
+}
+.uso-vagas .medidor { margin-top: 8px; }
+
+.vaga-item { display: block; padding: 16px 0; border-bottom: 1px solid var(--linha); text-decoration: none; color: var(--preto); }
+.vaga-item:last-child { border-bottom: 0; }
+.vaga-topo { display: flex; gap: 12px; align-items: center; }
+.vaga-titulo {
+  font-size: 18px; line-height: 1.2; font-weight: 800; font-variation-settings: "wdth" 80;
+  overflow-wrap: anywhere;
+}
+.vaga-empresa { font-size: 14px; color: var(--grafite); margin-top: 2px; }
+.vaga-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.vaga-rodape { display: flex; justify-content: space-between; gap: 10px; margin-top: 8px; font-size: 13px; color: var(--cinza); }
+.vaga-salario { font-weight: 700; color: var(--preto); }
+
+.vaga-cabeca { padding: 22px 16px 0; }
+.vaga-cabeca .vaga-titulo { font-size: 30px; line-height: 1.02; font-weight: 850; font-variation-settings: "wdth" 70; word-spacing: .08em; }
+.vaga-empresa-link { display: flex; align-items: center; gap: 12px; margin-top: 16px; text-decoration: none; color: var(--preto); }
+.vaga-fatos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 20px 16px 0; }
+.vaga-fato { background: var(--nevoa); border-radius: 16px; padding: 12px 14px; }
+.vaga-fato small { display: block; font-size: 12px; font-weight: 600; color: var(--cinza); }
+.vaga-fato span { display: block; font-weight: 700; font-size: 15px; line-height: 1.3; margin-top: 2px; }
+.vaga-cta { position: sticky; bottom: calc(var(--abas-altura) + var(--seguro-baixo)); padding: 12px 16px; background: linear-gradient(transparent, var(--branco) 30%); margin-top: 18px; }
+
+.status-vaga { display: inline-flex; align-items: center; gap: 4px; }
+.vaga-gestao { border: 1.5px solid var(--linha); border-radius: var(--r-cartao); padding: 16px; }
+.vaga-gestao + .vaga-gestao { margin-top: 12px; }
+.vaga-gestao .botoes { margin-top: 12px; }
+.vaga-gestao.apagada { background: var(--nevoa); }
+.vaga-gestao.apagada .vaga-titulo { color: var(--grafite); }
+.opcoes-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.opcoes-3 .opcao-corpo { padding: 12px 8px 12px 34px; align-content: center; min-height: 52px; }
+.opcoes-3 .opcao-corpo::before { left: 10px; top: 50%; margin-top: -9px; width: 18px; height: 18px; }
+.opcoes-3 .opcao-titulo { font-size: 14px; }
+.form-bloco { min-width: 0; }

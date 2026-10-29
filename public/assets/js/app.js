@@ -281,7 +281,12 @@
     function ver() {
       campo.hidden = inp.value !== 'outro';
       var t = $('input', campo);
-      if (!campo.hidden && t && !t.value) setTimeout(function () { t.focus(); }, 50);
+      if (!campo.hidden && t && !t.value) setTimeout(function () {
+        // Só puxa o foco se a pessoa ainda não começou a digitar em outro campo
+        var ativo = document.activeElement;
+        var digitando = ativo && ativo !== t && /^(INPUT|TEXTAREA)$/.test(ativo.tagName);
+        if (!t.value && !digitando) t.focus();
+      }, 50);
     }
     inp.addEventListener('change', ver);
     campo.hidden = inp.value !== 'outro';
@@ -319,6 +324,28 @@
       i.value = mascararTelefone(i.value);
       if (fim) i.setSelectionRange(i.value.length, i.value.length);
     });
+  });
+  function mascararCnpj(v) {
+    var c = v.toUpperCase().replace(/[^0-9A-Z]/g, '').slice(0, 14);
+    var out = c.slice(0, 2);
+    if (c.length > 2) out += '.' + c.slice(2, 5);
+    if (c.length > 5) out += '.' + c.slice(5, 8);
+    if (c.length > 8) out += '/' + c.slice(8, 12);
+    if (c.length > 12) out += '-' + c.slice(12);
+    return out;
+  }
+  $$('[data-mascara="cnpj"]').forEach(function (i) {
+    i.value = mascararCnpj(i.value);
+    i.addEventListener('input', function () {
+      var fim = i.selectionStart === i.value.length;
+      i.value = mascararCnpj(i.value);
+      if (fim) i.setSelectionRange(i.value.length, i.value.length);
+    });
+  });
+  $$('[data-mascara="moeda"]').forEach(function (i) {
+    function fmt(v) { var d = v.replace(/\D/g, '').replace(/^0+/, '').slice(0, 7); return d.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+    i.value = fmt(i.value);
+    i.addEventListener('input', function () { i.value = fmt(i.value); });
   });
   $$('[data-instagram]').forEach(function (i) {
     i.addEventListener('blur', function () {

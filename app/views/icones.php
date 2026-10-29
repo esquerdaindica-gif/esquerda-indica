@@ -44,5 +44,15 @@
     <symbol id="i-chave" viewBox="0 0 24 24"><circle cx="8" cy="15.5" r="4"/><path d="m10.9 12.6 8.6-8.6"/><path d="m16.5 7 2.5 2.5"/><path d="m14 9.5 2 2"/></symbol>
     <symbol id="i-copiar" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="12" height="12" rx="2.5"/><path d="M15.5 8.5V6a2.5 2.5 0 0 0-2.5-2.5H6A2.5 2.5 0 0 0 3.5 6v7A2.5 2.5 0 0 0 6 15.5h2.5"/></symbol>
     <symbol id="i-novo" viewBox="0 0 24 24"><path d="M12 3.5 13.9 9l5.6 1.1-4.3 3.7 1.1 5.7-4.3-3-4.3 3 1.1-5.7-4.3-3.7L10.1 9z"/></symbol>
+    <symbol id="i-vaga" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="12.5" rx="2.5"/><path d="M9 7.5V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5v2"/><path d="M12 11.5v4M10 13.5h4"/></symbol>
+    <symbol id="i-predio" viewBox="0 0 24 24"><path d="M4.5 20.5V5a1.5 1.5 0 0 1 1.5-1.5h7A1.5 1.5 0 0 1 14.5 5v15.5"/><path d="M14.5 9.5H18a1.5 1.5 0 0 1 1.5 1.5v9.5"/><path d="M3 20.5h18"/><path d="M8 7.5h3M8 11h3M8 14.5h3"/><path d="M8.5 20.5v-2.5h2v2.5"/></symbol>
+    <symbol id="i-dinheiro" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></symbol>
+    <symbol id="i-relogio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-pausa" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+    <symbol id="i-plano" viewBox="0 0 24 24"><path d="M12 3.5 20 8l-8 4.5L4 8z"/><path d="m4 12 8 4.5 8-4.5"/><path d="m4 16 8 4.5 8-4.5"/></symbol>
+    <symbol id="i-ajustes" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+    <symbol id="i-ferramenta" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 1 5 5l-2 .5-7.9 7.9a2.1 2.1 0 0 1-3-3l7.9-7.9z"/><path d="M14.5 4a4.5 4.5 0 0 0 5.5 5.5"/></symbol>
   </defs>
 </svg>

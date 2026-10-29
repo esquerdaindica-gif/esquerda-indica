@@ -11,4 +11,5 @@ render('perfil', [
     'p' => $p,
     'meu' => (int)$eu['id'] === (int)$p['id'],
     'admin' => $admin,
+    'vagas' => all(VAGA_SELECT . ' WHERE v.usuario_id = ? AND ' . VAGA_VISIVEL . ' ORDER BY v.publicada_em DESC', [$p['id']]),
 ]);

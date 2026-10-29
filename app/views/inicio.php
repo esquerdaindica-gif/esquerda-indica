@@ -39,6 +39,18 @@ $primeiroNome = explode(' ', trim($u['responsavel']))[0];
 </section>
 <?php endif; ?>
 
+<?php if ($vagasRecentes): ?>
+<section class="secao">
+  <div class="secao-cabeca">
+    <h2 class="secao-titulo">Vagas abertas</h2>
+    <a class="secao-link" href="<?= e(url('vagas')) ?>">Ver <?= $totalVagas > count($vagasRecentes) ? numero($totalVagas) : 'todas' ?></a>
+  </div>
+  <div>
+    <?php foreach ($vagasRecentes as $v) partial('item_vaga', ['v' => $v]); ?>
+  </div>
+</section>
+<?php endif; ?>
+
 <?php if ($servicosTop): ?>
 <section class="secao">
   <div class="secao-cabeca"><h2 class="secao-titulo">Serviços na rede</h2></div>

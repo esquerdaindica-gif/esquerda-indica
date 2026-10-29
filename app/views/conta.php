@@ -12,31 +12,44 @@
 
 <section class="secao">
   <div class="cartao">
-    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
-      <div>
-        <p style="font-weight:800;font-size:17px">Alterações do perfil</p>
-        <p class="texto-pequeno texto-fraco">
-          <?php if ($restantes > 0): ?>
-            Você ainda pode editar seu perfil <?= $restantes === 1 ? '1 vez' : $restantes . ' vezes' ?>.
-          <?php else: ?>
-            Você usou todas as alterações. Para mudar algo, peça à administração.
-          <?php endif; ?>
-        </p>
+    <?php if ($ed['modo'] === 'limite'): $restantes = $ed['restantes']; ?>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+        <div>
+          <p style="font-weight:800;font-size:17px">Alterações do perfil</p>
+          <p class="texto-pequeno texto-fraco">
+            <?php if ($restantes > 0): ?>
+              Você ainda pode editar seu perfil <?= $restantes === 1 ? '1 vez' : $restantes . ' vezes' ?>.
+            <?php else: ?>
+              Você usou todas as alterações. Para mudar algo, peça à administração.
+            <?php endif; ?>
+          </p>
+        </div>
+        <span class="alteracoes-num" aria-label="<?= $restantes ?> de <?= (int)$p['edicoes_limite'] ?> restantes"><?= $restantes ?><small style="font-size:20px;color:var(--cinza)">/<?= (int)$p['edicoes_limite'] ?></small></span>
       </div>
-      <span class="alteracoes-num" aria-label="<?= $restantes ?> de <?= (int)$p['edicoes_limite'] ?> restantes"><?= $restantes ?><small style="font-size:20px;color:var(--cinza)">/<?= (int)$p['edicoes_limite'] ?></small></span>
-    </div>
-    <?php if ($p['edicoes_limite'] > 0 && $p['edicoes_limite'] <= 12): ?>
-      <div class="medidor" aria-hidden="true">
-        <?php for ($i = 0; $i < $p['edicoes_limite']; $i++): ?><i class="<?= $i < $p['edicoes_usadas'] ? 'usada' : '' ?>"></i><?php endfor; ?>
-      </div>
+      <?php if ($p['edicoes_limite'] > 0 && $p['edicoes_limite'] <= 12): ?>
+        <div class="medidor" aria-hidden="true">
+          <?php for ($i = 0; $i < $p['edicoes_limite']; $i++): ?><i class="<?= $i < $p['edicoes_usadas'] ? 'usada' : '' ?>"></i><?php endfor; ?>
+        </div>
+      <?php endif; ?>
+    <?php else: ?>
+      <p style="font-weight:800;font-size:17px">Alterações do perfil</p>
+      <p class="texto-pequeno texto-fraco">
+        <?php if ($ed['pode']): ?>
+          Você pode editar seu perfil agora. Depois de salvar, a próxima alteração fica liberada em <?= (int)$ed['horas'] ?> horas.
+        <?php else: ?>
+          Você já editou seu perfil nas últimas <?= (int)$ed['horas'] ?> horas. A próxima alteração fica liberada <strong style="color:var(--preto)"><?= e(quando_liberada($ed['liberada_em'])) ?></strong>.
+        <?php endif; ?>
+      </p>
     <?php endif; ?>
     <div style="margin-top:16px">
-      <?php if ($restantes > 0): ?>
+      <?php if ($ed['pode']): ?>
         <a class="botao botao-primario botao-bloco" href="<?= e(url('conta/editar')) ?>"><?= icon('editar') ?> Editar meu perfil</a>
       <?php elseif ($pendente): ?>
         <div class="aviso"><?= icon('historico') ?><p><strong>Pedido em análise.</strong> Você pediu uma alteração <?= e(tempo_relativo($pendente['criado_em'])) ?>. Avisaremos aqui quando for respondido.</p></div>
-      <?php else: ?>
+      <?php elseif ($ed['modo'] === 'limite'): ?>
         <a class="botao botao-primario botao-bloco" href="<?= e(url('conta/solicitar')) ?>"><?= icon('enviar') ?> Solicitar alteração</a>
+      <?php else: ?>
+        <a class="botao botao-secundario botao-bloco" href="<?= e(url('conta/solicitar')) ?>"><?= icon('enviar') ?> É urgente? Pedir liberação</a>
       <?php endif; ?>
     </div>
     <?php if (!$pendente && $ultimaResolvida && strtotime($ultimaResolvida['resolvido_em']) > time() - 15 * 86400): ?>
@@ -49,9 +62,16 @@
   </div>
 </section>
 
+<?php if ($dv['motivo'] !== 'desligado'): ?>
+<section class="secao">
+  <?php partial('cartao_vagas', ['dv' => $dv, 'p' => $p]); ?>
+</section>
+<?php endif; ?>
+
 <section class="secao">
   <nav class="menu">
     <a class="menu-item" href="<?= e(url('p/' . $p['id'])) ?>"><?= icon('olho') ?><span>Ver meu perfil público</span><?= icon('seta') ?></a>
+    <a class="menu-item" href="<?= e(url('conta/empresa')) ?>"><?= icon('predio') ?><span>Dados da empresa (CNPJ)</span><?= icon('seta') ?></a>
     <a class="menu-item" href="<?= e(url('conta/senha')) ?>"><?= icon('chave') ?><span>Alterar senha</span><?= icon('seta') ?></a>
     <a class="menu-item" href="<?= e(url('conta/solicitar')) ?>"><?= icon('caixa') ?><span>Meus pedidos de alteração</span><?= icon('seta') ?></a>
     <a class="menu-item" href="<?= e(url('privacidade')) ?>"><?= icon('cadeado') ?><span>Privacidade e dados</span><?= icon('seta') ?></a>

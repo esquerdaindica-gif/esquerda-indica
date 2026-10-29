@@ -56,6 +56,9 @@ $pendentesAdmin = ($u && $u['papel'] === 'admin') ? (int)val("SELECT COUNT(*) FR
   <nav class="abas" aria-label="Navegação principal">
     <a href="<?= e(url('/')) ?>" class="aba<?= $aba === 'inicio' ? ' ativa' : '' ?>"<?= $aba === 'inicio' ? ' aria-current="page"' : '' ?>><?= icon('inicio') ?><span>Início</span></a>
     <a href="<?= e(url('buscar')) ?>" class="aba<?= $aba === 'buscar' ? ' ativa' : '' ?>"<?= $aba === 'buscar' ? ' aria-current="page"' : '' ?>><?= icon('buscar') ?><span>Buscar</span></a>
+    <?php if (cfg('vagas_ativas') === '1'): ?>
+      <a href="<?= e(url('vagas')) ?>" class="aba<?= $aba === 'vagas' ? ' ativa' : '' ?>"<?= $aba === 'vagas' ? ' aria-current="page"' : '' ?>><?= icon('vaga') ?><span>Vagas</span></a>
+    <?php endif; ?>
     <?php if ($u['papel'] === 'admin'): ?>
       <a href="<?= e(url('admin')) ?>" class="aba<?= $aba === 'admin' ? ' ativa' : '' ?>"<?= $aba === 'admin' ? ' aria-current="page"' : '' ?>><?= icon('admin') ?><span>Admin</span><?php if ($pendentesAdmin): ?><b class="aba-badge"><?= $pendentesAdmin ?></b><?php endif; ?></a>
     <?php else: ?>

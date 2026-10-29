@@ -7,12 +7,16 @@
     <li>Telefone, WhatsApp e Instagram, quando informados.</li>
     <li>Tipo de serviço, descrição profissional, estado, cidade e área de atendimento.</li>
     <li>Foto ou logo, quando enviada.</li>
+    <li>CNPJ e razão social, quando você cadastra uma empresa, e as vagas de emprego que anunciar.</li>
     <li>E-mail e senha de acesso. A senha é guardada de forma criptografada e ninguém consegue lê-la.</li>
     <li>Registros de uso necessários à segurança, como data de acesso, alterações feitas no perfil e endereço IP.</li>
   </ul>
 
   <h2>Para que usamos</h2>
   <p>Os dados servem para montar seu perfil profissional e permitir que outros membros cadastrados encontrem e entrem em contato com você. Não vendemos nem repassamos seus dados a terceiros e não usamos para publicidade.</p>
+
+  <h2>Vagas de emprego</h2>
+  <p>As vagas são anunciadas por empresas com CNPJ. A candidatura acontece direto com a empresa, pelo WhatsApp, e-mail ou link que ela indicar. O app não recebe nem guarda currículos.</p>
 
   <h2>Quem pode ver</h2>
   <p>Seu perfil e seus contatos só aparecem para pessoas com cadastro ativo no app. A administração do grupo tem acesso aos dados para moderar a rede, bloquear perfis irregulares e atender pedidos de alteração.</p>

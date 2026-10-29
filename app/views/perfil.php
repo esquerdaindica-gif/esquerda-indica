@@ -14,7 +14,7 @@ $msgWhats = 'Olá! Encontrei seu contato no app Esquerda Indica.';
     <p class="perfil-resp">Responsável: <?= e($p['responsavel']) ?></p>
   <?php endif; ?>
   <div class="perfil-meta">
-    <span class="etiqueta etiqueta-vermelha"><?= icon('servico') ?> <?= e(servico_label($p)) ?></span>
+    <span class="etiqueta etiqueta-vermelha"><?= icon('ferramenta') ?> <?= e(servico_label($p)) ?></span>
     <span class="perfil-local"><?= icon('local') ?><?= e(local_label($p)) ?></span>
   </div>
 </header>
@@ -34,6 +34,17 @@ $msgWhats = 'Olá! Encontrei seu contato no app Esquerda Indica.';
   <div class="secao" style="padding-top:16px">
     <a class="botao botao-secundario botao-bloco" href="<?= e(url('admin/usuarios/' . $p['id'])) ?>"><?= icon('admin') ?> Gerenciar no painel</a>
   </div>
+<?php endif; ?>
+
+<?php if ($vagas): ?>
+<section class="bloco-info">
+  <h2><?= count($vagas) === 1 ? 'Vaga aberta' : count($vagas) . ' vagas abertas' ?></h2>
+  <div>
+    <?php foreach ($vagas as $vg): ?>
+      <a class="dado" href="<?= e(url('vagas/' . $vg['id'])) ?>"><?= icon('vaga') ?><div style="flex:1;min-width:0"><small><?= e(VAGA_CONTRATOS[$vg['contrato']]) ?>, <?= e(VAGA_MODALIDADES[$vg['modalidade']]) ?></small><span><?= e($vg['titulo']) ?></span></div><?= icon('seta') ?></a>
+    <?php endforeach; ?>
+  </div>
+</section>
 <?php endif; ?>
 
 <section class="bloco-info">
@@ -57,6 +68,9 @@ $msgWhats = 'Olá! Encontrei seu contato no app Esquerda Indica.';
     <?php endif; ?>
     <?php if ($p['instagram']): ?>
       <a class="dado" href="<?= e(link_instagram($p['instagram'])) ?>" target="_blank" rel="noopener"><?= icon('instagram') ?><div><small>Instagram</small><span>@<?= e($p['instagram']) ?></span></div></a>
+    <?php endif; ?>
+    <?php if (!empty($p['cnpj'])): ?>
+      <div class="dado"><?= icon('predio') ?><div><small>CNPJ</small><span><?= e(fmt_cnpj($p['cnpj'])) ?></span><?php if ($p['razao_social']): ?><small style="margin-top:2px"><?= e($p['razao_social']) ?></small><?php endif; ?></div></div>
     <?php endif; ?>
     <a class="dado" href="<?= e(url('p/' . $p['id'] . '/contato.vcf')) ?>"><?= icon('contato') ?><div><small>Agenda do celular</small><span>Salvar contato</span></div></a>
   </div>

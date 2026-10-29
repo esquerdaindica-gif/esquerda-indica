@@ -22,7 +22,14 @@ if ($u['cidade_id']) {
     $totalCidade = (int)val("SELECT COUNT(*) FROM usuarios u WHERE $base AND u.cidade_id = ? AND u.id <> ?", [$u['cidade_id'], $u['id']]);
 }
 
+$vagasRecentes = cfg('vagas_ativas') === '1'
+    ? all(VAGA_SELECT . ' WHERE ' . VAGA_VISIVEL . ' ORDER BY v.publicada_em DESC LIMIT 3') : [];
+$totalVagas = cfg('vagas_ativas') === '1'
+    ? (int)val('SELECT COUNT(*) FROM vagas v JOIN usuarios u ON u.id = v.usuario_id WHERE ' . VAGA_VISIVEL) : 0;
+
 render('inicio', [
+    'vagasRecentes' => $vagasRecentes,
+    'totalVagas' => $totalVagas,
     'aba' => 'inicio',
     'cont' => $cont,
     'u' => $u,

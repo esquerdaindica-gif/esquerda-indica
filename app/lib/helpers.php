@@ -355,4 +355,11 @@ const ACOES_HISTORICO = [
     'exclusao_usuario'  => 'Exclusão pelo usuário',
     'exclusao_admin'    => 'Exclusão pela administração',
     'servico'           => 'Tipos de serviço',
+    'empresa'           => 'Dados da empresa',
+    'vaga'              => 'Vaga',
+    'vaga_admin'        => 'Vaga moderada',
+    'vagas_acesso'      => 'Acesso a vagas',
+    'plano'             => 'Plano',
+    'config'            => 'Configurações',
+    'edicao_liberada'   => 'Edição liberada',
 ];
