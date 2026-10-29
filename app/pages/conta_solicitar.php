@@ -29,5 +29,5 @@ render('conta_solicitar', [
     'aba' => 'conta',
     'pendente' => $pendente,
     'pedidos' => $pedidos,
-    'restantes' => edicoes_restantes($eu),
+    'ed' => situacao_edicao($eu),
 ]);

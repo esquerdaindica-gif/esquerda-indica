@@ -1,14 +1,21 @@
 <div class="secao" style="padding-bottom:4px">
-  <div class="aviso <?= $restantes === 1 ? 'aviso-vermelho' : '' ?>">
-    <?= icon($restantes === 1 ? 'alerta' : 'info') ?>
-    <p>
-      <?php if ($restantes === 1): ?>
-        <strong>Esta é sua última alteração disponível.</strong> Revise tudo antes de salvar. Depois, só com pedido à administração.
-      <?php else: ?>
-        Você tem <strong><?= $restantes ?> alterações</strong>. Cada vez que salvar com alguma mudança, uma delas é usada. Trocar a senha não conta.
-      <?php endif; ?>
-    </p>
-  </div>
+  <?php if ($ed['modo'] === 'limite'): $restantes = $ed['restantes']; ?>
+    <div class="aviso <?= $restantes === 1 ? 'aviso-vermelho' : '' ?>">
+      <?= icon($restantes === 1 ? 'alerta' : 'info') ?>
+      <p>
+        <?php if ($restantes === 1): ?>
+          <strong>Esta é sua última alteração disponível.</strong> Revise tudo antes de salvar. Depois, só com pedido à administração.
+        <?php else: ?>
+          Você tem <strong><?= $restantes ?> alterações</strong>. Cada vez que salvar com alguma mudança, uma delas é usada. Trocar a senha e os dados da empresa não conta.
+        <?php endif; ?>
+      </p>
+    </div>
+  <?php else: ?>
+    <div class="aviso">
+      <?= icon('relogio') ?>
+      <p>Revise tudo antes de salvar. Depois de salvar com alguma mudança, a próxima alteração fica liberada em <strong><?= (int)$ed['horas'] ?> horas</strong>. Trocar a senha e os dados da empresa não conta.</p>
+    </div>
+  <?php endif; ?>
 </div>
 
 <form method="post" action="<?= e(url('conta/editar')) ?>" enctype="multipart/form-data" class="form" style="gap:0">

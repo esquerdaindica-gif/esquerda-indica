@@ -1,12 +1,16 @@
 <?php $statusTxt = ['pendente' => ['Em análise', ''], 'aprovada' => ['Aprovado', 'etiqueta-verde'], 'recusada' => ['Recusado', 'etiqueta-vermelha']]; ?>
 <section class="secao">
-  <?php if ($restantes > 0): ?>
-    <div class="aviso aviso-verde"><?= icon('check') ?><p>Você ainda tem <strong><?= $restantes === 1 ? '1 alteração' : $restantes . ' alterações' ?></strong> disponível. Não precisa pedir: <a class="link" href="<?= e(url('conta/editar')) ?>">editar agora</a>.</p></div>
+  <?php if ($ed['pode']): ?>
+    <div class="aviso aviso-verde"><?= icon('check') ?><p>Sua alteração está liberada. Não precisa pedir: <a class="link" href="<?= e(url('conta/editar')) ?>">editar agora</a>.</p></div>
   <?php elseif ($pendente): ?>
     <div class="aviso"><?= icon('historico') ?><p><strong>Seu pedido está em análise.</strong> Assim que a administração responder, ele aparece aqui e em Minha conta.</p></div>
   <?php else: ?>
     <h2 class="secao-titulo">Precisa mudar algo?</h2>
-    <p class="texto-fraco" style="margin-top:6px">Você já usou as alterações do seu perfil. Conte o que precisa mudar e o motivo. Se aprovado, você ganha uma nova alteração.</p>
+    <?php if ($ed['modo'] === 'limite'): ?>
+      <p class="texto-fraco" style="margin-top:6px">Você já usou as alterações do seu perfil. Conte o que precisa mudar e o motivo. Se aprovado, você ganha uma nova alteração.</p>
+    <?php else: ?>
+      <p class="texto-fraco" style="margin-top:6px">Sua próxima alteração fica liberada <?= e(quando_liberada($ed['liberada_em'])) ?>. Se não dá para esperar, conte o que precisa mudar e o motivo. Se aprovado, a edição é liberada na hora.</p>
+    <?php endif; ?>
     <form method="post" action="<?= e(url('conta/solicitar')) ?>" class="form" style="margin-top:18px">
       <?= csrf_field() ?>
       <div class="campo<?= tem_erro('motivo') ?>">

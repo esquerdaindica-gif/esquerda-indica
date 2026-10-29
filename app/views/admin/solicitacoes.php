@@ -16,7 +16,7 @@
         <?= avatar($s, 'avatar-m avatar-quadrado') ?>
         <div style="flex:1;min-width:0">
           <p class="item-nome"><?= e(nome_exibicao($s)) ?></p>
-          <p class="item-linha">Pedido <?= e(tempo_relativo($s['criado_em'])) ?>. Usou <?= (int)$s['edicoes_usadas'] ?> de <?= (int)$s['edicoes_limite'] ?>.</p>
+          <p class="item-linha">Pedido <?= e(tempo_relativo($s['criado_em'])) ?>.<?php if (cfg('edicao_modo') === 'limite'): ?> Usou <?= (int)$s['edicoes_usadas'] ?> de <?= (int)$s['edicoes_limite'] ?>.<?php endif; ?></p>
         </div>
       </a>
       <p class="solicitacao-motivo"><?= e($s['motivo']) ?></p>
@@ -31,7 +31,7 @@
           </div>
           <input type="hidden" name="quantidade" value="1">
           <div class="botoes">
-            <button type="submit" name="decisao" value="aprovar" class="botao botao-primario botao-pequeno"><?= icon('check') ?> Aprovar e liberar 1</button>
+            <button type="submit" name="decisao" value="aprovar" class="botao botao-primario botao-pequeno"><?= icon('check') ?> Aprovar e liberar</button>
             <button type="submit" name="decisao" value="recusar" class="botao botao-secundario botao-pequeno"><?= icon('fechar') ?> Recusar</button>
           </div>
         </form>

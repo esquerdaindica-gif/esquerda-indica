@@ -3,10 +3,14 @@ $eu = exigir_login();
 if ($eu['papel'] === 'admin') redirect('admin');
 
 $p = carregar_perfil((int)$eu['id']);
-$restantes = edicoes_restantes($p);
-if ($restantes <= 0) {
-    flash('erro', 'Você já usou todas as alterações. Envie um pedido para a administração.');
-    redirect('conta/solicitar');
+$ed = situacao_edicao($p);
+if (!$ed['pode']) {
+    if ($ed['modo'] === 'limite') {
+        flash('erro', 'Você já usou todas as alterações. Envie um pedido para a administração.');
+        redirect('conta/solicitar');
+    }
+    flash('erro', 'A próxima alteração do perfil fica liberada ' . quando_liberada($ed['liberada_em']) . '.');
+    redirect('conta');
 }
 
 if (is_post()) {
@@ -45,12 +49,18 @@ if (is_post()) {
     }
 
     if (array_key_exists('foto', $d) && $fotoAntiga && $fotoAntiga !== $d['foto']) apagar_foto($fotoAntiga);
-    q('UPDATE usuarios SET edicoes_usadas = edicoes_usadas + 1 WHERE id = ?', [$p['id']]);
-    $n = (int)$p['edicoes_usadas'] + 1;
-    historico((int)$p['id'], label_usuario($d + $p), 'edicao', "Editou o perfil (alteração $n de {$p['edicoes_limite']})", ['mudancas' => $mudancas], 'usuario');
+    consumir_edicao((int)$p['id']);
+    $resumo = $ed['modo'] === 'limite'
+        ? 'Editou o perfil (alteração ' . ((int)$p['edicoes_usadas'] + 1) . ' de ' . (int)$p['edicoes_limite'] . ')'
+        : 'Editou o perfil';
+    historico((int)$p['id'], label_usuario($d + $p), 'edicao', $resumo, ['mudancas' => $mudancas], 'usuario');
 
-    $sobram = $restantes - 1;
-    flash('sucesso', $sobram > 0 ? 'Perfil atualizado. Você ainda pode fazer ' . ($sobram === 1 ? '1 alteração.' : "$sobram alterações.") : 'Perfil atualizado. Essa foi sua última alteração disponível.');
+    if ($ed['modo'] === 'limite') {
+        $sobram = $ed['restantes'] - 1;
+        flash('sucesso', $sobram > 0 ? 'Perfil atualizado. Você ainda pode fazer ' . ($sobram === 1 ? '1 alteração.' : "$sobram alterações.") : 'Perfil atualizado. Essa foi sua última alteração disponível.');
+    } else {
+        flash('sucesso', 'Perfil atualizado. A próxima alteração fica liberada em ' . $ed['horas'] . ' horas.');
+    }
     redirect('conta');
 }
 
@@ -59,5 +69,5 @@ render('conta_editar', [
     'voltar' => url('conta'),
     'aba' => 'conta',
     'p' => $p,
-    'restantes' => $restantes,
+    'ed' => $ed,
 ]);

@@ -15,7 +15,7 @@ if (is_post()) {
         transacao(function () use ($s, $resposta, $extra) {
             q("UPDATE solicitacoes SET status = 'aprovada', resposta = ?, resolvido_em = NOW(), resolvido_por = ? WHERE id = ?", [$resposta, usuario_atual()['id'], $s['id']]);
             // Libera novas alterações: garante que sobrem $extra a partir de agora
-            q('UPDATE usuarios SET edicoes_limite = LEAST(99, edicoes_usadas + ?) WHERE id = ? AND edicoes_limite < edicoes_usadas + ?', [$extra, $s['usuario_id'], $extra]);
+            liberar_edicao((int)$s['usuario_id'], $extra);
         });
         historico((int)$s['usuario_id'], $label, 'solicitacao_ok', 'Pedido aprovado: ' . ($extra === 1 ? '1 alteração liberada' : "$extra alterações liberadas"), ['motivo' => $s['motivo'], 'resposta' => $resposta]);
         flash('sucesso', 'Pedido aprovado. ' . ($extra === 1 ? 'Uma alteração foi liberada.' : "$extra alterações foram liberadas."));
