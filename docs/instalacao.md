@@ -91,9 +91,20 @@ server {
 
 Aponte o `DocumentRoot` para `public`. O arquivo `public/.htaccess` já cuida das rotas (precisa do `mod_rewrite` e `AllowOverride All`).
 
+## Atualizando uma instalação manual
+
+Depois de trocar os arquivos pela versão nova, aplique as mudanças de banco:
+
+```bash
+cd /var/www/esquerda-indica
+php bin/migrar.php
+```
+
+O comando só aplica o que ainda não rodou e pode ser repetido sem risco. Faça uma cópia do banco antes de atualizar (`mysqldump esquerda_indica > copia.sql`).
+
 ## Ajustes comuns
 
-* **Quantas alterações cada novo usuário tem:** `edicoes_padrao` em `app/config.php`.
+* **Regra de edição do perfil, limite e validade das vagas:** no painel, em Administração, Configurações.
 * **E-mail de recuperação de senha:** preencha o bloco `mail` em `app/config.php`. Sem SMTP, o app usa a função `mail()` do servidor. Se o e-mail não chegar, o admin pode definir uma nova senha para a pessoa no painel.
 * **Esqueceu a senha do admin:** rode de novo `php bin/instalar.php seu-email@dominio.com`. Ele não apaga nada e só redefine a senha.
 

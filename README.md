@@ -7,7 +7,7 @@ O app funciona no navegador, mas foi pensado para o celular: dá para instalar n
 <p>
   <img src="docs/telas/03-inicio.png" width="230" alt="Tela inicial">
   <img src="docs/telas/04-busca.png" width="230" alt="Busca por cidade">
-  <img src="docs/telas/05-perfil.png" width="230" alt="Perfil de um profissional">
+  <img src="docs/telas/10-vagas.png" width="230" alt="Vagas de emprego">
 </p>
 
 ## Por que existe
@@ -25,7 +25,8 @@ O Esquerda Indica organiza isso. Cada pessoa cadastra o próprio trabalho uma ve
 - Área de atendimento: só a cidade, a cidade e vizinhas, o estado inteiro ou o Brasil todo, além de atendimento online.
 - Aceite da política de privacidade (LGPD) registrado com data.
 - Login por e-mail e senha, recuperação por e-mail e troca de senha.
-- Cada pessoa pode editar o perfil duas vezes. Depois disso, pede uma nova alteração à administração explicando o motivo. Salvar sem mudar nada não conta.
+- Edição do perfil uma vez a cada 24 horas. Quem precisa mudar antes pode pedir liberação à administração. A administração também pode trocar para a regra de quantidade fixa de alterações. Salvar sem mudar nada não conta.
+- CNPJ e razão social opcionais, numa área própria que não gasta alterações. O CNPJ é conferido e aceita o novo formato com letras.
 - Exclusão da conta pela própria pessoa, com confirmação por senha.
 
 **Busca (só para membros cadastrados)**
@@ -34,9 +35,22 @@ O Esquerda Indica organiza isso. Cada pessoa cadastra o próprio trabalho uma ve
 - Considera a área de atendimento: quem atende a região aparece numa seção separada, depois de quem é da cidade.
 - Perfil com atalhos para WhatsApp (com mensagem pronta), ligação, Instagram, compartilhar e salvar na agenda do celular.
 
+**Vagas de emprego**
+- Empresas com CNPJ e razão social anunciam até 3 vagas ativas ao mesmo tempo. O app mostra com clareza o que falta preencher e quanto do limite está em uso.
+- Cada vaga tem cargo, contratação, modalidade, local, salário, descrição, requisitos, benefícios e forma de candidatura (WhatsApp, e-mail ou link).
+- A candidatura é direto com a empresa. O app não recebe nem guarda currículos.
+- Vagas ficam no ar por 30 dias e podem ser pausadas, renovadas e encerradas.
+- Aba Vagas com busca por texto, estado, cidade, contratação e modalidade.
+
+<p>
+  <img src="docs/telas/11-vaga.png" width="230" alt="Página de uma vaga">
+  <img src="docs/telas/12-minhas-vagas.png" width="230" alt="Minhas vagas">
+  <img src="docs/telas/14-conta-empresa.png" width="230" alt="O que falta para anunciar vagas">
+</p>
+
 **Tela inicial**
 - Contadores de profissionais ativos e de cadastros no total.
-- Destaque para quem acabou de entrar, serviços mais presentes na rede e profissionais da sua cidade.
+- Destaque para quem acabou de entrar, vagas abertas, serviços mais presentes na rede e profissionais da sua cidade.
 
 **Administração**
 - Painel com os números da rede.
@@ -44,11 +58,14 @@ O Esquerda Indica organiza isso. Cada pessoa cadastra o próprio trabalho uma ve
 - Fila de pedidos de alteração, com aprovação ou recusa e resposta que a pessoa vê na conta dela.
 - Histórico de tudo o que acontece: cada edição mostra o antes e o depois. Contas excluídas continuam no histórico com os dados, a foto e os pedidos feitos.
 - Gestão dos tipos de serviço, incluindo transformar um "Outro" que se repete em tipo oficial e mover os perfis automaticamente.
+- Vagas: liberar, bloquear ou mudar o limite de cada empresa, pausar ou remover anúncios com motivo.
+- Planos com preço e limite de vagas, atribuídos manualmente enquanto a cobrança não está ligada.
+- Configurações gerais: regra de edição do perfil, vagas ligadas ou desligadas, limite padrão e validade das vagas.
 
 <p>
   <img src="docs/telas/07-admin-painel.png" width="230" alt="Painel da administração">
   <img src="docs/telas/08-admin-usuario.png" width="230" alt="Gestão de um usuário">
-  <img src="docs/telas/09-admin-pedidos.png" width="230" alt="Pedidos de alteração">
+  <img src="docs/telas/16-admin-vagas.png" width="230" alt="Vagas na administração">
 </p>
 
 ## Tecnologias
@@ -95,19 +112,32 @@ Para atualizar, `git pull` e o mesmo comando de novo. Banco, configuração e fo
 
 O passo a passo manual, a configuração do Nginx e do Apache e os ajustes mais comuns estão em [docs/instalacao.md](docs/instalacao.md).
 
+## Planos e limites de vagas
+
+O limite de vagas de cada empresa é decidido em um só lugar (`direito_vagas()` em `app/lib/regras.php`), nesta ordem:
+
+1. limite próprio definido pela administração na ficha da conta;
+2. plano ativo da conta (tabela `assinaturas`);
+3. limite padrão do site, nas configurações.
+
+As tabelas `planos`, `assinaturas` e `pagamentos` já existem. Para começar a cobrar, falta integrar um meio de pagamento que crie a assinatura quando o pagamento for confirmado. O resto do app já respeita o plano.
+
 ## Organização do código
 
 ```
 app/
   pages/       uma página por rota (lógica e validação)
   views/       telas em PHP com HTML
-  lib/         banco, autenticação, perfil, fotos, e-mail e funções gerais
+  lib/         banco, autenticação, perfil, regras (edição, CNPJ, vagas, planos),
+               fotos, e-mail, migrações e funções gerais
   config.example.php
 bin/
   instalar.php       cria tabelas, importa dados e o administrador
+  migrar.php         aplica mudanças de banco pendentes
   publicar.sh        publicação e atualização no servidor
   dados-exemplo.php  perfis fictícios para desenvolvimento
 database/      SQL das tabelas, estados, cidades e tipos de serviço
+  migracoes/   mudanças de banco de cada versão, aplicadas em ordem
 docs/          instalação e capturas de tela
 public/        única pasta exposta na web
 storage/       arquivos privados (fotos de contas excluídas)

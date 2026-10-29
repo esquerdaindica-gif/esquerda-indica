@@ -76,3 +76,32 @@ Nasceu com o nome de trabalho **Profissionais Progressistas**, para substituir a
 - O script funciona tanto a partir do repositório clonado quanto de um arquivo zip, e preserva banco, configuração e fotos nas atualizações.
 - `bin/dados-exemplo.php` com perfis fictícios para desenvolvimento.
 - Documentação: README, guia de instalação, histórico de mudanças, roadmap e capturas de tela.
+
+## [0.4.0] 29/10/2026: vagas de emprego
+
+### Adicionado
+- **Dados da empresa:** CNPJ e razão social, opcionais no cadastro e numa área própria em Minha conta. O CNPJ é conferido pelos dígitos verificadores, aceita o novo formato com letras da Receita Federal e não pode se repetir entre contas. Aparece no perfil para dar mais confiança.
+- **Vagas de emprego:** empresas com CNPJ e razão social anunciam vagas com cargo, tipo de contratação, modalidade, local, quantidade, salário (a combinar, valor ou faixa), descrição, requisitos, benefícios e forma de candidatura (WhatsApp, e-mail ou link).
+- Cada empresa pode manter até 3 vagas ativas ao mesmo tempo. Vagas pausadas, encerradas ou vencidas não contam.
+- As vagas ficam no ar por 30 dias e podem ser renovadas, pausadas, republicadas ou encerradas em Minhas vagas.
+- Nova aba **Vagas** com busca por texto, estado, cidade, contratação e modalidade. Como na busca de profissionais, só aparecem opções que têm vaga. Vagas remotas aparecem em qualquer local filtrado.
+- Página de cada vaga com botão de candidatura direto para a empresa e compartilhamento.
+- Vagas mais recentes na tela inicial e vagas abertas no perfil da empresa.
+- Cartão em Minha conta que mostra o que falta para liberar as vagas e quanto do limite está em uso.
+- **Administração:**
+  - Na ficha de cada usuário: acesso a vagas automático, sempre liberado ou bloqueado, limite próprio de vagas e plano.
+  - Lista de vagas com filtros, pausa e remoção com motivo, que a empresa vê.
+  - Tela de planos, com nome, preço, período e limite de vagas.
+  - Tela de configurações: regra de edição do perfil, vagas ligadas ou desligadas no site, limite padrão e validade das vagas.
+- **Base para planos pagos:** tabelas de planos, assinaturas e pagamentos. O limite de cada empresa segue esta ordem: ajuste da administração, plano ativo, padrão do site. Hoje existe só o plano Gratuito.
+- **Migrações de banco:** `bin/migrar.php` aplica as mudanças pendentes. O `publicar.sh` roda as migrações sozinho nas atualizações.
+
+### Alterado
+- Nova regra padrão para editar o perfil: **uma alteração a cada 24 horas**, sem limite total. A regra anterior, com quantidade fixa e pedido à administração, continua disponível nas configurações.
+- No modo de 24 horas, quem precisa mudar algo antes do prazo pode pedir liberação. Se aprovado, a edição é liberada na hora.
+- Incluir ou corrigir os dados da empresa, trocar a senha e editar vagas não gastam alterações do perfil.
+- Contas excluídas guardam também os dados da empresa e as vagas no histórico.
+- Política de privacidade atualizada com CNPJ e vagas.
+
+### Corrigido
+- Ao escolher "Outro" no tipo de serviço, o campo de texto podia roubar o foco de quem já estava digitando em outro campo.

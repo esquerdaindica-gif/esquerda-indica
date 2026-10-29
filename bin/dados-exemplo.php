@@ -73,4 +73,46 @@ foreach ($outros as $k => [$txt, $cid, $uf]) {
 }
 q("UPDATE usuarios SET status='bloqueado', bloqueio_motivo='Perfil duplicado' WHERE email='teste14@exemplo.com'");
 q("INSERT INTO solicitacoes (usuario_id, motivo) SELECT id, 'Troquei de número de WhatsApp e preciso atualizar meu Instagram, que mudou de nome.' FROM usuarios WHERE email='teste0@exemplo.com'");
+// Empresas com CNPJ e vagas de exemplo
+function cnpj_exemplo(int $base): string
+{
+    $c = str_pad((string)$base, 8, '0', STR_PAD_LEFT) . '0001';
+    foreach ([12, 13] as $n) {
+        $pesos = $n === 12 ? [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2] : [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+        $soma = 0;
+        for ($i = 0; $i < $n; $i++) $soma += (int)$c[$i] * $pesos[$i];
+        $r = $soma % 11;
+        $c .= $r < 2 ? 0 : 11 - $r;
+    }
+    return $c;
+}
+$empresas = [
+    'Lucas Ferreira Contabilidade' => ['Ferreira Serviços Contábeis Ltda', [
+        ['Assistente contábil', 'clt', 'presencial', 'faixa', 2200, 2800, 'Lançamentos contábeis, conciliação bancária e apoio no fechamento mensal de pequenas empresas e associações. Segunda a sexta, das 8h às 17h.', 'Curso técnico ou superior em andamento em Contabilidade. Conhecimento em planilhas.', 'Vale-transporte, vale-alimentação e plano de saúde.', 'email'],
+        ['Estágio em departamento pessoal', 'estagio', 'hibrido', 'valor', 1100, null, 'Apoio na folha de pagamento, admissões e rescisões. Três dias no escritório e dois em casa, 6 horas por dia.', 'Cursando Administração, Contabilidade ou Recursos Humanos.', 'Bolsa-auxílio e vale-transporte.', 'whatsapp'],
+    ]],
+    'Doce Resistência' => ['Doce Resistência Confeitaria ME', [
+        ['Auxiliar de confeitaria', 'clt', 'presencial', 'valor', 1800, null, 'Preparo de massas, recheios e montagem de bolos e doces para encomendas. Escala de terça a sábado.', 'Experiência com confeitaria é um diferencial. Vontade de aprender é o principal.', 'Alimentação no local e vale-transporte.', 'whatsapp'],
+    ]],
+    'Pedro Antunes' => ['Pedro Antunes Desenvolvimento de Software Ltda', [
+        ['Desenvolvedor PHP pleno', 'pj', 'remoto', 'faixa', 5000, 7500, 'Manutenção e evolução de sistemas web para pequenos negócios e coletivos. Projetos em PHP, MySQL e JavaScript sem framework pesado.', 'Pelo menos 2 anos com PHP e MySQL. Git no dia a dia.', null, 'link'],
+    ]],
+    'Bike Livre Oficina' => ['Bike Livre Oficina Comunitária Ltda', [
+        ['Mecânico de bicicletas', 'temporario', 'presencial', 'combinar', null, null, 'Contrato de 3 meses para a temporada de verão. Revisões, troca de peças e montagem de bicicletas.', 'Experiência com manutenção de bicicletas.', null, 'whatsapp'],
+    ]],
+    'Ateliê Raízes' => ['Ateliê Raízes Moda Sustentável Ltda', []],
+];
+$i = 0;
+foreach ($empresas as $nome => [$razao, $vagas]) {
+    $u = one('SELECT * FROM usuarios WHERE empresa = ?', [$nome]);
+    if (!$u) continue;
+    q('UPDATE usuarios SET cnpj = ?, razao_social = ? WHERE id = ?', [cnpj_exemplo(31415900 + $i++), $razao, $u['id']]);
+    foreach ($vagas as $h => [$tit, $ct, $mod, $st, $min, $max, $desc, $req, $ben, $ctt]) {
+        $valor = $ctt === 'email' ? $u['email'] : ($ctt === 'link' ? 'https://exemplo.com/vagas' : ($u['whatsapp'] ?: $u['telefone']));
+        q("INSERT INTO vagas (usuario_id, titulo, contrato, modalidade, estado_id, cidade_id, quantidade, salario_tipo, salario_min, salario_max, descricao, requisitos, beneficios, contato_tipo, contato_valor, publicada_em, expira_em)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, NOW() - INTERVAL ? HOUR, NOW() + INTERVAL 25 DAY)",
+           [$u['id'], $tit, $ct, $mod, $u['estado_id'], $u['cidade_id'], $h === 0 && $ct === 'clt' ? 2 : 1, $st, $min, $max, $desc, $req, $ben, $ctt, $valor, 5 + $i * 7 + $h]);
+    }
+}
+
 echo "Perfis de exemplo criados. Senha de todos: senha1234\n";
